@@ -58,11 +58,13 @@ Brian is a user starting from scratch. Brian can grab our CLI tool from npm. The
 Majority of our code will be in the CLI tool for generating GitHub Action workflow files.
 Development of the CLI tool is being done at [https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline](https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline)
 
----------------------------------------------------------------------------------------------
-PENDING IMAGE (Check with the previous team)
-
+## 5. Architecture Diagram
+<img src="https://i.ibb.co/51QPXnm/CICDCT-Architecture-Diagram.png">
 
 In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, formats code, runs unit and integration tests with pytest and selenium (or cypress), and then provides results of the tests in the pull request.
 
 If the changes introduce errors, the developer can go back to debugging. If there are no errors from the tests, it is deployed to Kubernetes. Once it gets deployed, integration and stress testing will take place and check marks will appear on the GitHub Actions page if the tests have passed.
 
+The change is ready to be reviewed by another team member as a pull request. When the team member approves the changes, the code will be deployed to the production server hosted on AWS/GCP/MOC using Kubernetes.
+  
+We will be developing unit tests and end-to-end API integration tests alongside the development of the URL shortener. These tests will allow us to verify the proper function of various system components, such as backend and frontend.
