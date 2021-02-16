@@ -5,7 +5,7 @@
 #### Mentors: Ata Turk, Prajna Bhaskar, James Colley, Surya Jayanthi, Panat Taranat, Yan Chen
 
 
-# 1. Vision and Goals of the Project:
+## 1. Vision and Goals of the Project:
 
 A CI/CD pipeline that can be used for API development has already been developed by a team (Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi). They have used an example of a URL shortener API as a demonstration of the pipeline, though the pipeline will work with most Python APIs. The pipeline will allow incremental changes to be developed, tested, verified, and deployed in an automated manner.  The project currently supports unit testing only during the integration phase and deployment in OpenShift only.
  
@@ -58,7 +58,7 @@ Brian is a user starting from scratch. Brian can grab our CLI tool from npm. The
 Majority of our code will be in the CLI tool for generating GitHub Action workflow files.
 Development of the CLI tool is being done at [https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline](https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline)
 
-## 5. Architecture Diagram
+#### Architecture Diagram
 <img src="https://i.ibb.co/51QPXnm/CICDCT-Architecture-Diagram.png">
 
 In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, formats code, runs unit and integration tests with pytest and selenium (or cypress), and then provides results of the tests in the pull request.
