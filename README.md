@@ -68,3 +68,30 @@ If the changes introduce errors, the developer can go back to debugging. If ther
 The change is ready to be reviewed by another team member as a pull request. When the team member approves the changes, the code will be deployed to the production server hosted on AWS/GCP/MOC using Kubernetes.
   
 We will be developing unit tests and end-to-end API integration tests alongside the development of the URL shortener. These tests will allow us to verify the proper function of various system components, such as backend and frontend.
+
+## 5. Acceptance Criteria
+Minimum acceptance criteria is a enhanced CI/CD/CT pipeline for an API developed and tested with our example URL shortener API. It will detect all commits and pull requests in a GitHub repository, and run the pipeline defined by our GitHub actions configurations. This will build a docker image and deploy the changes to a running production server with no stoppage.
+- Add integration test in CI pipeline
+- Any code that does not build or passes tests will not make it to production
+- The example URL shortener API will automatically be deployed on Kubernetes in CD pipeline
+- Generic and extensible, can be easily implemented by an API developer using Flask/Python
+
+## 6. Release Planning
+Release 1 (Deadline: Feb 23, Demo1: Feb 26)
+- Write selenium tests for the Flask application and test them manually
+- Automate selenium tests in CI pipeline
+  
+Release 2 (Deadline: Mar 9, Demo2: Mar 12)
+- Configure the previous code base and deploy a code change to OpenShift
+- Deploy the app on Kubernetes during CD
+  
+Release 3 (Deadline: Mar 23, Demo3: Mar 26)
+- Add integration test on kubernetes in CI pipeline
+  
+Release 4 (Deadline: Apr 6, Demo4: Apr 9) 
+- Add other test (smoke test) on kubernetes in CI pipeline
+- Out-of-Scope features
+  
+Release 5 (Deadline: end of semester)
+- Complete documentation and make sure every part is functional, stable, and verified
+- Final video
