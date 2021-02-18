@@ -9,22 +9,27 @@
 
 A CI/CD pipeline that can be used for API development has already been developed by a team (Panat Taranat, Yan Chen, Mella Liang, Peter Wang, Kaito Yamagishi). They have used an example of a URL shortener API as a demonstration of the pipeline, though the pipeline will work with most Python APIs. The pipeline will allow incremental changes to be developed, tested, verified, and deployed in an automated manner.  The project currently supports unit testing only during the integration phase and deployment in OpenShift only.
  
-We will be adding the functionality of integration testing during CI and deployment in Kubernetes only. Following core DevOps principles will allow the project team to strive for continuous improvement with minimal downtime, and to respond quickly to customer feedback and insights.
+ 
+During the CI, once the unit tests gets done, the k8s build gets triggered, integration and load testing gets started in the application testing environment, if the application passes the tests, the code is now ready to merge to the master branch.
 
+During the CD process, when the developer/operator decides to push the code to staging environment, the k8s build is triggered and the integration/load tests run on the application and once it passes, the code changes are now succesfully pushed to the staging environment.
+
+Once the above steps are done, the code changes will be pushed to the production.
+
+Now, the application in the production environment will be tested continuosly using the testing tools.
 
 Important goals include:
 - Fully automated setup, deployment and testing. The entire process for a developer to make changes to the codebase should require as little manual interaction as possible. Same with someone who is looking to use our repo as a GitHub template for their own project.
-- Unit tests and Integration tests can be written and integrated into the pipeline on GitHub.
+- Unit tests can be written and integrated into the pipeline on GitHub.
 - Integration tests will be performed on Kubernetes.
-
+- Creating different environments duirng different phases and testing the code changes appropriately.
 
 
 ## 2. Users/Personas of the Project:
 
-Andy is a user of the CI/CD/CT pipeline with an existing project. Andy already has a simple Flask webapp on a GitHub repo. Andy has written some unit tests and integration tests and wants to deploy his app onto Kubernetes. He reads the documentation for our CI/CD/CT pipeline, grabs the CLI tool from npm, and uses our CLI tool to quickly setup GitHub Actions workflows. Now, whenever Andy makes commits to this repo, the code will go through unit tests and integration tests. If the tests have passed, the code will be deployed on Kubernetes, serving users of his webapp with the latest version.
+Andy is a user of the CI/CD/CT pipeline with an existing project. Andy already has a simple Flask webapp on a GitHub repo. Andy has written some unit tests and integration tests and wants to deploy his app onto Kubernetes. He reads the documentation for our CI/CD/CT pipeline, grabs the CLI tool from npm, and uses our CLI tool to quickly setup GitHub Actions workflows. Now, whenever Andy makes commits to this repo, the code will go through unit tests and integration tests. If the tests have passed, the code will be tested on the staging envionment, and then deployed to production environment, serving users of his webapp with the latest version while being continuously tested.
 
-Brian is a user starting from scratch. Brian can grab our CLI tool from npm. The tool will guide him through the process of setting up and deploying his webapp. As he develops, he can add tests (both unit and integration tests) and the tool can regenerate the workflow yaml files as needed. This allows Brian to perform test driven development on the cloud as early as possible.
-
+Brian plays the role of an operator who is responsible for deploying the changes in the code to different environments like, staging and production and can use the CD pipeline to deploy changes in the respective environments once the tests pass.
 
 
 
@@ -72,25 +77,26 @@ We will be developing unit tests and end-to-end API integration tests alongside 
 ## 5. Acceptance Criteria
 Minimum acceptance criteria is a enhanced CI/CD/CT pipeline for an API developed and tested with our example URL shortener API. It will detect all commits and pull requests in a GitHub repository, and run the pipeline defined by our GitHub actions configurations. This will build a docker image and deploy the changes to a running production server with no stoppage.
 - Add integration test in CI pipeline
+- Create a staging environment to perform application testing
 - Any code that does not build or passes tests will not make it to production
-- The example URL shortener API will automatically be deployed on Kubernetes in CD pipeline
-- Generic and extensible, can be easily implemented by an API developer using Flask/Python
+- Make sure that application on production environment gets tested continuously
 
 ## 6. Release Planning
 Release 1 (Deadline: Feb 23, Demo1: Feb 26)
 - Write selenium tests for the Flask application and test them manually
-- Automate selenium tests in CI pipeline
+- Configure the previous code base and deploy a code change to OpenShift
   
 Release 2 (Deadline: Mar 9, Demo2: Mar 12)
-- Configure the previous code base and deploy a code change to OpenShift
-- Deploy the app on Kubernetes during CD
+- Create the application testing environment for CI pipleine
+- Automate the integration tests using Selenium/cypress in CI pipeline
   
 Release 3 (Deadline: Mar 23, Demo3: Mar 26)
-- Add integration test on kubernetes in CI pipeline
+- Creating the staging environment in CD pipeline
+- Automate the integration tests using Selenium/cypress in CD pipeline
   
 Release 4 (Deadline: Apr 6, Demo4: Apr 9) 
-- Add other test (smoke test) on kubernetes in CI pipeline
-- Out-of-Scope features
+- Create the production envrionment for continuous testing
+- Perform continuous testing
   
 Release 5 (Deadline: end of semester)
 - Complete documentation and make sure every part is functional, stable, and verified
