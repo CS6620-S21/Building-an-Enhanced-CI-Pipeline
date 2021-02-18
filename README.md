@@ -64,7 +64,7 @@ Majority of our code will be in the CLI tool for generating GitHub Action workfl
 Development of the CLI tool is being done at [https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline](https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline)
 
 #### Architecture Diagram
-<img src="https://ibb.co/hRkzpxt">
+<img src="https://i.ibb.co/xSyTVKR/CI-CD-CT-solid5.png" alt="CI-CD-CT-solid5" border="0">
 
 In the diagram, when developers make any changes in the code and the commits are pushed to GitHub, GitHub Actions triggers the CI workflow. It builds the project with the changed contents, formats code, runs unit and integration tests with pytest and selenium (or cypress), and then provides results of the tests in the pull request.
 
