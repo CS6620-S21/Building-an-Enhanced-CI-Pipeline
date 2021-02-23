@@ -92,3 +92,23 @@ def test_delete_nonexisting_case(app, client):
     response = client.delete("/ + " "testNonExist")
     assert response.headers[1] == ("Content-Length", "17")
     assert response.status_code == 400
+
+# ----------7-----------
+# post a new test url4  post/get
+def test_case7(app, client):
+    url = "/"
+    test_data = {
+        "original_link": "https://www.UrlUnitTesting4.com/",
+        "expire_at": "2021-9-30",
+    }
+    # post a new test url4
+    response = client.post(
+        "/api/", data=json.dumps(test_data), content_type="application/json"
+    )
+
+    assert response.status_code == 200
+
+    link_id = response.json["link_id"]
+    response = client.get("/" + link_id)
+    assert response.status_code == 302  # redirect response
+
