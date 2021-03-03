@@ -105,3 +105,9 @@ Release 5 (Deadline: end of semester)
 ## 7. Sprint demos and presentations
 
 - [Sprint 1 presentation](https://northeastern-my.sharepoint.com/:p:/r/personal/mahapatra_an_northeastern_edu/_layouts/15/Doc.aspx?sourcedoc=%7B106CE9C6-8DD2-4002-A918-8750DDDD8A0F%7D&file=Enahanced%20CI_CD%20pipeline%20-%20Sprint%201.pptx&wdOrigin=OFFICECOM-WEB.START.REC&ct=1614736027095&action=edit&mobileredirect=true)
+
+## 8. Other repositories
+
+- https://github.com/yachinz/cicdct_test_repo
+- https://github.com/yachinz/cicdct_react_frontend
+- https://github.com/yachinz/cicdct_flask_backend
