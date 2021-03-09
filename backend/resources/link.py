@@ -9,8 +9,8 @@ import string
 from datetime import date, datetime, timedelta
 
 # Constants
-# WEBSITE_URL = 'http://localhost:5000/'
-WEBSITE_URL = "http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/"
+WEBSITE_URL = 'http://localhost:5000/'
+# WEBSITE_URL = "http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/"
 
 
 class BaseAPI(Resource):
@@ -28,7 +28,7 @@ class LinkAPI(Resource):
         try:
 
             original_link = Link.objects.get_or_404(link_id=link_id)["original_link"]
-            print("original_link", original_link)
+            # print("original_link", original_link)
             # return redirect(original_link)
             return redirect(original_link)
         except:
@@ -75,13 +75,13 @@ class LinkAPI(Resource):
             try:
                 link_id = Link.objects.get_or_404(link_id=link_id)["link_id"]
                 short_link = Link.objects.get_or_404(link_id=link_id)["short_link"]
-                print("short_link", short_link)
+                # print("short_link", short_link)
                 return (
                     jsonify(short_link=short_link, message="the url alreadt exist"),
                     201,
                 )
             finally:
-                print(e)
+                # print(e)
                 return jsonify(link_id=link_id, short_link=short_link, message=str(e))
                 # return 'Oops, something went wrong', 500
 

@@ -12,9 +12,8 @@ from backend.resources.routes import initialize_routes
 # Initialization
 app = Flask(__name__, static_folder="ui/build")
 api = Api(app, catch_all_404s=True)
-cors = CORS(app, resources=r"/*")
-
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# cors = CORS(app, resources=r"/*")
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Config
 app.config["MONGODB_SETTINGS"] = {
