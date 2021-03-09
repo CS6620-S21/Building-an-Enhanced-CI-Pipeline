@@ -12,13 +12,13 @@ from backend.resources.routes import initialize_routes
 # Initialization
 app = Flask(__name__, static_folder="ui/build")
 api = Api(app, catch_all_404s=True)
-cors = CORS(app, resources=r"/*")
-
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# cors = CORS(app, resources=r"/*")
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Config
 app.config["MONGODB_SETTINGS"] = {
-    "host": "mongodb+srv://CS6620-Team:W5N3ifJvglp1Y9SZ@cluster0.ytua9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    # "host": "mongodb+srv://cicd-team:ec528@cicd-cluster0.s9vur.gcp.mongodb.net/doubly?retryWrites=true&w=majority"
+    "host": "mongodb+srv://YaqinZhou:fuSVb8OW6CqKSBQT@cluster0.ytua9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }
 
 initialize_db(app)
