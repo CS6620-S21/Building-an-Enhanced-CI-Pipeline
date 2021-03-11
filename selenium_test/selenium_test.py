@@ -237,16 +237,16 @@ class BrowserTest:
         self.browser.quit()
         print("Browser closed")
 
-class ArgParser:
-    def __init__(self):
-        description = 'Usage: python selenium_test.py  '
-        parser = ArgumentParser(description=description)
-        parser.add_argument('-x', '--headless', required=False, action='store_true',
-                            help='add -x option to run in terminal only (no GUI)')
-        self.args = parser.parse_args()
+# class ArgParser:
+#     def __init__(self):
+#         description = 'Usage: python selenium_test.py  '
+#         parser = ArgumentParser(description=description)
+#         parser.add_argument('-x', '--headless', required=False, action='store_true',
+#                             help='add -x option to run in terminal only (no GUI)')
+#         self.args = parser.parse_args()
 
-    def get_args(self):
-        return self.args
+#     def get_args(self):
+#         return self.args
 
 
 # class MultiBrowserTest(ArgParser):
