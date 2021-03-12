@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: gke-test-selenium
-        image: gcr.io/grand-radio-307118/selenium/static-site:75b3ef025835afc76bbe78bc90e17331a854f009
+        image: gcr.io/grand-radio-307118/selenium/static-site:1c76ab2fe4e2b85044833af38d8145a14d661d12
         resources:
           requests:
             cpu: 100m
