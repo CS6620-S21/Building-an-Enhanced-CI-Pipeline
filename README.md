@@ -108,6 +108,5 @@ Release 5 (Deadline: end of semester)
 
 ## 8. Other repositories
 
-- https://github.com/yachinz/cicdct_test_repo
+
 - https://github.com/yachinz/cicdct_react_frontend
-- https://github.com/yachinz/cicdct_flask_backend
