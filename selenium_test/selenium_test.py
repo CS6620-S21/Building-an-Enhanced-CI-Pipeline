@@ -149,7 +149,7 @@ class BrowserTest:
     #         # testcase1
     #         # https://github.com/yachinz/format_test
     #         # http://localhost:5000/aloEv2
-    #         self.browser.get(config['selenium_test_url'] + aloEv2')
+    #         self.browser.get(config['selenium_test_url'] + 'aloEv2')
     #         sleep(randint(5, 10) + random())
     #         assert self.browser.current_url == 'https://github.com/yachinz/format_test'
     #         print("Pass testcase 1 in check_redirect")
@@ -158,7 +158,7 @@ class BrowserTest:
     #         + "https://github.com/yachinz/format_test\n" 
     #         + traceback.format_exc())
     #         print(
-    #             "Falied, redirect_link 1: " + config['selenium_test_url'] + 'aloEv2, " 
+    #             "Falied, redirect_link 1: " + config['selenium_test_url'] + 'aloEv2, ' 
     #             + "https://github.com/yachinz/format_test")
 
     #     # testcase2
@@ -173,7 +173,7 @@ class BrowserTest:
     #         logging.error("Falied, redirect_link 2: http://localhost:5000/4nSynq, "
     #         + "https://github.com/yachinz/live2d-widget\n" 
     #         + traceback.format_exc())
-    #         print("Failed, redirect_link 2: "+ config['selenium_test_url'] + '4nSynq, " 
+    #         print("Failed, redirect_link 2: "+ config['selenium_test_url'] + '4nSynq, ' 
     #         + "https://github.com/yachinz/live2d-widget")
 
     #     # testcase3
