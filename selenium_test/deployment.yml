@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gke-test-selenium
+  labels:
+    app: gke-test-selenium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gke-test-selenium
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: gke-test-selenium
+    spec:
+      containers:
+      - name: gke-test-selenium
+        image: gcr.io/grand-radio-307118/selenium/static-site:1c76ab2fe4e2b85044833af38d8145a14d661d12
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 4000
