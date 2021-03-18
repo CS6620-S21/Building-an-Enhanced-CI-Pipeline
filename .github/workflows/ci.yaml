@@ -32,24 +32,24 @@ jobs:
   #         secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
   #         git commit -am "Automated autoyapf fixes"
   #         git push
-  pyTest:
-    # needs: formatting
-    name: Unit Test - PyTest
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setting up Python 3.6
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.6
-      - name: Installing Python dependencies from requirements.txt
-        uses: py-actions/py-dependency-install@v2
-        with:
-          path: ./requirements.txt
-      - name: Testing with PyTest
-        run: >
-          python3 -m pytest -rsA tests/ -vv --cov-fail-under=99 -W
-          ignore::DeprecationWarning
+  # pyTest:
+  #   # needs: formatting
+  #   name: Unit Test - PyTest
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Setting up Python 3.6
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.6
+  #     - name: Installing Python dependencies from requirements.txt
+  #       uses: py-actions/py-dependency-install@v2
+  #       with:
+  #         path: ./requirements.txt
+  #     - name: Testing with PyTest
+  #       run: >
+  #         python3 -m pytest -rsA tests/ -vv --cov-fail-under=99 -W
+  #         ignore::DeprecationWarning
 #   setup-build-publish-deploy:
 #     name: Setup, Build, Publish, and Deploy
 #     runs-on: ubuntu-latest
@@ -105,10 +105,26 @@ jobs:
 #         kubectl rollout status deployment/$DEPLOYMENT_NAME
 #         kubectl get services -o wide
 
-#   run-integration-tests:
-#     needs: setup-build-publish-deploy
-#     name: run the integration tests
-#     runs-on: ubuntu-latest
+  run-integration-tests:
+    # needs: setup-build-publish-deploy
+    name: run the integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setting up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Installing Python dependencies from requirements.txt
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: ./selenium_test/requirements.txt
+      - name: Testing with PyTest
+        run: >
+          python3 selenium_test.py
+
+
+
 
 #     steps:
 #     - name: Checkout

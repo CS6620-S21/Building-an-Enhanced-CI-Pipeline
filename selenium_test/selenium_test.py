@@ -289,13 +289,15 @@ class BrowserTest:
         print("Browser closed")
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='log_record.log',
-    level=logging.ERROR, filemode='w', format='[%(asctime)s] [%(levelname)s] >>>  %(message)s',
-                    datefmt='%Y-%m-%d %I:%M:%S')
-    new_browser = BrowserTest()
-    new_browser.open_home()
-    new_browser.check_empty_link()
-    # new_browser.check_regular_link()
-    # new_browser.check_redirect()
-    new_browser.integration()
-    new_browser.close_browser()
+    print("test the exit")
+    sys.exit(1)
+    # logging.basicConfig(filename='log_record.log',
+    # level=logging.ERROR, filemode='w', format='[%(asctime)s] [%(levelname)s] >>>  %(message)s',
+    #                 datefmt='%Y-%m-%d %I:%M:%S')
+    # new_browser = BrowserTest()
+    # new_browser.open_home()
+    # new_browser.check_empty_link()
+    # # new_browser.check_regular_link()
+    # # new_browser.check_redirect()
+    # new_browser.integration()
+    # new_browser.close_browser()
