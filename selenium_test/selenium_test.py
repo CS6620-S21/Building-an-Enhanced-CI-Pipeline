@@ -30,7 +30,7 @@ class BrowserTest:
         except Exception as e:
             logging.error("Failed open_home!!!"+ config['selenium_test_url'] 
             +"\n" + traceback.format_exc())
-            print("Failed open_home!!!")
+            print("Failed open_home!!!" + "\n" + traceback.format_exc())
             sys.exit()
 
 
@@ -51,7 +51,7 @@ class BrowserTest:
             print("Pass check empty link")
         except AssertionError as e:
             logging.error("Failed check_empty_link\n" + traceback.format_exc())
-            print("Failed check_empty_link")
+            print("Failed check_empty_link" + "\n" + traceback.format_exc())
 
     # def check_regular_link(self):
     #     print("----------------------------------------")
@@ -226,10 +226,10 @@ class BrowserTest:
             self.browser.get(shortURL)
             sleep(randint(1, 3) + random())
             assert self.browser.current_url == 'https://www.northeastern.edu/'
-            print('Pass, integration test')
+            print('Pass, integration test 1')
         except Exception:
             logging.error("Failed, integration test: https://www.northeastern.edu/\n" + traceback.format_exc())
-            print("Failed, integration test!!!")
+            print("Failed, integration test 1!!!" + "\n" + traceback.format_exc())
 
         print("Integration test 2")
         try:
@@ -255,7 +255,7 @@ class BrowserTest:
         except Exception:
             logging.error("Failed, integration test: https://github.com/CS6620-S21/" + \
              "Building-an-Enhanced-CI-Pipeline/tree/main/UI/build/\n" + traceback.format_exc())
-            print("Failed, integration test 2!!!")
+            print("Failed, integration test 2!!!" + "\n" + traceback.format_exc())
 
         print("Integration test 3")
         try:
@@ -281,7 +281,7 @@ class BrowserTest:
         except Exception:
             logging.error("Failed, integration test: https://github.com/yachinz/bu_cicd"
             + "_example_selenium_test/blob/master/selenium_test.py/\n" + traceback.format_exc())
-            print("Failed, integration test 3!!!")
+            print("Failed, integration test 3" + "\n" + traceback.format_exc())
 
     def close_browser(self):
         print("***********************************************")
@@ -294,7 +294,7 @@ if __name__ == '__main__':
                     datefmt='%Y-%m-%d %I:%M:%S')
     new_browser = BrowserTest()
     new_browser.open_home()
-    # new_browser.check_empty_link()
+    new_browser.check_empty_link()
     # new_browser.check_regular_link()
     # new_browser.check_redirect()
     new_browser.integration()
