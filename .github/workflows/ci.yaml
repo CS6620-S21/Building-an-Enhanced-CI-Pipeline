@@ -121,7 +121,7 @@ jobs:
           path: ./selenium_test/requirements.txt
       - name: Testing with PyTest
         run: >
-          python3 selenium_test.py
+          python3 ./selenium_test/selenium_test.py
 
 
 
