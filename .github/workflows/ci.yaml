@@ -161,7 +161,7 @@ jobs:
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
         
-run-load-tests:
+  run-load-tests:
     needs: setup-build-publish-deploy
     name: run the load tests
     runs-on: ubuntu-latest
