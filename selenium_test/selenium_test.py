@@ -9,8 +9,8 @@ from selenium.webdriver.firefox.options import Options
 from yaml import safe_load
 import sys
 
-# with open('./resources/config.yaml') as yaml_in:
-#     config = safe_load(yaml_in)
+with open('resources/config.yaml') as yaml_in:
+    config = safe_load(yaml_in)
 class BrowserTest:
     def __init__(self):
         options = Options()
@@ -53,157 +53,157 @@ class BrowserTest:
             logging.error("Failed check_empty_link\n" + traceback.format_exc())
             print("Failed check_empty_link" + "\n" + traceback.format_exc())
 
-    # def check_regular_link(self):
-    #     print("----------------------------------------")
-    #     print("Test the regular links.\n")
-    #     # testcase1
-    #     # https://github.com/yachinz/format_test
-    #     # http://localhost:5000/aloEv2
-    #     try:
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_id('cloud_url_input').send_keys(
-    #             "https://github.com/yachinz/format_test")
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_class_name('btn.btn-primary').click()
-    #         sleep(randint(3, 5) + random())
-    #         # check if this return a URL as wishes
-    #         assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
-    #             'http://localhost:5000/aloEv2'
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_id('cloud_url_input').clear()
-    #         sleep(randint(1, 3) + random())
-    #         print("Pass testcase 1 in regular link")
-    #     except AssertionError as e:
-    #         logging.error("regular_link 1: https://github.com/yachinz/format_test\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, regular_link 1: https://github.com/yachinz/format_test")
+    def check_regular_link(self):
+        print("----------------------------------------")
+        print("Test the regular links.\n")
+        # testcase1
+        # https://github.com/yachinz/format_test
+        # http://localhost:5000/aloEv2
+        try:
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_id('cloud_url_input').send_keys(
+                "https://github.com/yachinz/format_test")
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_class_name('btn.btn-primary').click()
+            sleep(randint(3, 5) + random())
+            # check if this return a URL as wishes
+            assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
+                'http://localhost:5000/aloEv2'
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_id('cloud_url_input').clear()
+            sleep(randint(1, 3) + random())
+            print("Pass testcase 1 in regular link")
+        except AssertionError as e:
+            logging.error("regular_link 1: https://github.com/yachinz/format_test\n" 
+            + traceback.format_exc())
+            print("Failed, regular_link 1: https://github.com/yachinz/format_test")
 
-    #     # testcase2
-    #     # https://github.com/yachinz/live2d-widget
-    #     # http://localhost:5000/4nSynq
-    #     try:
-    #         self.browser.find_element_by_id('cloud_url_input').send_keys(
-    #             "https://github.com/yachinz/live2d-widget")
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_class_name('btn.btn-primary').click()
-    #         sleep(randint(3, 5) + random())
-    #         # check if this return a URL as wishes
-    #         assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
-    #             config['selenium_test_url'] + '4nSynq'
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_id('cloud_url_input').clear()
-    #         sleep(randint(1, 3) + random())
-    #         print("Pass testcase 2 in regular link")
-    #     except AssertionError as e:
-    #         logging.error("regular_link 2: https://github.com/yachinz/live2d-widget\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, regular_link 2: https://github.com/yachinz/live2d-widget")
+        # testcase2
+        # https://github.com/yachinz/live2d-widget
+        # http://localhost:5000/4nSynq
+        try:
+            self.browser.find_element_by_id('cloud_url_input').send_keys(
+                "https://github.com/yachinz/live2d-widget")
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_class_name('btn.btn-primary').click()
+            sleep(randint(3, 5) + random())
+            # check if this return a URL as wishes
+            assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
+                config['selenium_test_url'] + '4nSynq'
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_id('cloud_url_input').clear()
+            sleep(randint(1, 3) + random())
+            print("Pass testcase 2 in regular link")
+        except AssertionError as e:
+            logging.error("regular_link 2: https://github.com/yachinz/live2d-widget\n" 
+            + traceback.format_exc())
+            print("Failed, regular_link 2: https://github.com/yachinz/live2d-widget")
 
-    #     # testcase3
-    #     # https://github.com/yachinz/easy-animator
-    #     # http://localhost:5000/1JbS5c
-    #     try:
-    #         self.browser.find_element_by_id('cloud_url_input').send_keys(
-    #             "https://github.com/yachinz/easy-animator")
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_class_name('btn.btn-primary').click()
-    #         sleep(randint(3, 5) + random())
-    #         # check if this return a URL as wishes
-    #         assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
-    #             config['selenium_test_url'] + '1JbS5c'
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_id('cloud_url_input').clear()
-    #         sleep(randint(1, 3) + random())
-    #         print("Pass testcase 3 in regular link")
-    #     except AssertionError as e:
-    #         logging.error("regular_link 3: https://github.com/yachinz/easy-animator\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, regular_link 3: https://github.com/yachinz/easy-animator")
+        # testcase3
+        # https://github.com/yachinz/easy-animator
+        # http://localhost:5000/1JbS5c
+        try:
+            self.browser.find_element_by_id('cloud_url_input').send_keys(
+                "https://github.com/yachinz/easy-animator")
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_class_name('btn.btn-primary').click()
+            sleep(randint(3, 5) + random())
+            # check if this return a URL as wishes
+            assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
+                config['selenium_test_url'] + '1JbS5c'
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_id('cloud_url_input').clear()
+            sleep(randint(1, 3) + random())
+            print("Pass testcase 3 in regular link")
+        except AssertionError as e:
+            logging.error("regular_link 3: https://github.com/yachinz/easy-animator\n" 
+            + traceback.format_exc())
+            print("Failed, regular_link 3: https://github.com/yachinz/easy-animator")
 
-    #     # testcase4
-    #     # github.com/yachinz/live2d-widget
-    #     # http://localhost:5000/6UErY0
-    #     try:
-    #         self.browser.find_element_by_id('cloud_url_input').send_keys(
-    #             "github.com/yachinz/live2d-widget")
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_class_name('btn.btn-primary').click()
-    #         sleep(randint(3, 5) + random())
-    #         # check if this return a URL as wishes
-    #         assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
-    #             config['selenium_test_url'] + '6UErY0'
-    #         sleep(randint(1, 3) + random())
-    #         self.browser.find_element_by_id('cloud_url_input').clear()
-    #         sleep(randint(1, 3) + random())
-    #         print("Pass testcase 4 in regular link")
-    #     except AssertionError as e:
-    #         logging.error("regular_link 4: github.com/yachinz/live2d-widget\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, regular_link 4: github.com/yachinz/live2d-widget")
+        # testcase4
+        # github.com/yachinz/live2d-widget
+        # http://localhost:5000/6UErY0
+        try:
+            self.browser.find_element_by_id('cloud_url_input').send_keys(
+                "github.com/yachinz/live2d-widget")
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_class_name('btn.btn-primary').click()
+            sleep(randint(3, 5) + random())
+            # check if this return a URL as wishes
+            assert self.browser.find_element_by_id('cloud_url_output').get_attribute("value") == \
+                config['selenium_test_url'] + '6UErY0'
+            sleep(randint(1, 3) + random())
+            self.browser.find_element_by_id('cloud_url_input').clear()
+            sleep(randint(1, 3) + random())
+            print("Pass testcase 4 in regular link")
+        except AssertionError as e:
+            logging.error("regular_link 4: github.com/yachinz/live2d-widget\n" 
+            + traceback.format_exc())
+            print("Failed, regular_link 4: github.com/yachinz/live2d-widget")
 
-    # def check_redirect(self):
-    #     print("-----------------------------------------------")
-    #     print("Test redirect.\n")
-    #     try:
-    #         # testcase1
-    #         # https://github.com/yachinz/format_test
-    #         # http://localhost:5000/aloEv2
-    #         self.browser.get(config['selenium_test_url'] + 'aloEv2')
-    #         sleep(randint(5, 10) + random())
-    #         assert self.browser.current_url == 'https://github.com/yachinz/format_test'
-    #         print("Pass testcase 1 in check_redirect")
-    #     except AssertionError as e:
-    #         logging.error("redirect_link 1: http://localhost:5000/aloEv2, " 
-    #         + "https://github.com/yachinz/format_test\n" 
-    #         + traceback.format_exc())
-    #         print(
-    #             "Failed, redirect_link 1: " + config['selenium_test_url'] + 'aloEv2,' 
-    #             + "https://github.com/yachinz/format_test")
+    def check_redirect(self):
+        print("-----------------------------------------------")
+        print("Test redirect.\n")
+        try:
+            # testcase1
+            # https://github.com/yachinz/format_test
+            # http://localhost:5000/aloEv2
+            self.browser.get(config['selenium_test_url'] + 'aloEv2')
+            sleep(randint(5, 10) + random())
+            assert self.browser.current_url == 'https://github.com/yachinz/format_test'
+            print("Pass testcase 1 in check_redirect")
+        except AssertionError as e:
+            logging.error("redirect_link 1: http://localhost:5000/aloEv2, " 
+            + "https://github.com/yachinz/format_test\n" 
+            + traceback.format_exc())
+            print(
+                "Failed, redirect_link 1: " + config['selenium_test_url'] + 'aloEv2,' 
+                + "https://github.com/yachinz/format_test")
 
-    #     # testcase2
-    #     # https://github.com/yachinz/live2d-widget
-    #     # http://localhost:5000/4nSynq
-    #     try:
-    #         self.browser.get(config['selenium_test_url'] + '4nSynq')
-    #         sleep(randint(5, 10) + random())
-    #         assert self.browser.current_url == 'https://github.com/yachinz/live2d-widget'
-    #         print("Pass testcase 2 in check_redirect")
-    #     except AssertionError as a:
-    #         logging.error("Failed, redirect_link 2: http://localhost:5000/4nSynq, "
-    #         + "https://github.com/yachinz/live2d-widget\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, redirect_link 2: "+ config['selenium_test_url'] + '4nSynq, ' 
-    #         + "https://github.com/yachinz/live2d-widget")
+        # testcase2
+        # https://github.com/yachinz/live2d-widget
+        # http://localhost:5000/4nSynq
+        try:
+            self.browser.get(config['selenium_test_url'] + '4nSynq')
+            sleep(randint(5, 10) + random())
+            assert self.browser.current_url == 'https://github.com/yachinz/live2d-widget'
+            print("Pass testcase 2 in check_redirect")
+        except AssertionError as a:
+            logging.error("Failed, redirect_link 2: http://localhost:5000/4nSynq, "
+            + "https://github.com/yachinz/live2d-widget\n" 
+            + traceback.format_exc())
+            print("Failed, redirect_link 2: "+ config['selenium_test_url'] + '4nSynq, ' 
+            + "https://github.com/yachinz/live2d-widget")
 
-    #     # testcase3
-    #     # https://github.com/yachinz/easy-animator
-    #     # http://localhost:5000/1JbS5c
-    #     try:
-    #         self.browser.get(config['selenium_test_url'] + '1JbS5c')
-    #         sleep(randint(5, 10) + random())
-    #         assert self.browser.current_url == 'https://github.com/yachinz/easy-animator'
-    #         print("Pass testcase 3 in check_redirect")
-    #     except AssertionError as a:
-    #         logging.error("redirect_link 3: http://localhost:5000/1JbS5c, " 
-    #         + "https://github.com/yachinz/easy-animator\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, redirect_link 3: "+ config['selenium_test_url'] + "1JbS5c, " 
-    #         + "https://github.com/yachinz/easy-animator")
+        # testcase3
+        # https://github.com/yachinz/easy-animator
+        # http://localhost:5000/1JbS5c
+        try:
+            self.browser.get(config['selenium_test_url'] + '1JbS5c')
+            sleep(randint(5, 10) + random())
+            assert self.browser.current_url == 'https://github.com/yachinz/easy-animator'
+            print("Pass testcase 3 in check_redirect")
+        except AssertionError as a:
+            logging.error("redirect_link 3: http://localhost:5000/1JbS5c, " 
+            + "https://github.com/yachinz/easy-animator\n" 
+            + traceback.format_exc())
+            print("Failed, redirect_link 3: "+ config['selenium_test_url'] + "1JbS5c, " 
+            + "https://github.com/yachinz/easy-animator")
 
-    #     # testcase4
-    #     # github.com/yachinz/live2d-widget
-    #     # http://localhost:5000/6UErY0
-    #     try:
-    #         self.browser.get(config['selenium_test_url'] + '6UErY0')
-    #         sleep(randint(5, 10) + random())
-    #         assert self.browser.current_url == 'https://github.com/yachinz/live2d-widget'
-    #         print("Pass testcase 4 in check_redirect")
-    #     except AssertionError as a:
-    #         logging.error("failed, redirect_link 4: http://localhost:5000/6UErY0, " 
-    #         + "https://github.com/yachinz/live2d-widget\n" 
-    #         + traceback.format_exc())
-    #         print("Failed, redirect_link 4: " + config['selenium_test_url'] + "6UErY0, " 
-    #         + "https://github.com/yachinz/live2d-widget")
+        # testcase4
+        # github.com/yachinz/live2d-widget
+        # http://localhost:5000/6UErY0
+        try:
+            self.browser.get(config['selenium_test_url'] + '6UErY0')
+            sleep(randint(5, 10) + random())
+            assert self.browser.current_url == 'https://github.com/yachinz/live2d-widget'
+            print("Pass testcase 4 in check_redirect")
+        except AssertionError as a:
+            logging.error("failed, redirect_link 4: http://localhost:5000/6UErY0, " 
+            + "https://github.com/yachinz/live2d-widget\n" 
+            + traceback.format_exc())
+            print("Failed, redirect_link 4: " + config['selenium_test_url'] + "6UErY0, " 
+            + "https://github.com/yachinz/live2d-widget")
 
     def integration(self):
         print("----------------------------------------------")
@@ -291,13 +291,13 @@ class BrowserTest:
 if __name__ == '__main__':
     print("test the exit")
     sys.exit(1)
-    # logging.basicConfig(filename='log_record.log',
-    # level=logging.ERROR, filemode='w', format='[%(asctime)s] [%(levelname)s] >>>  %(message)s',
-    #                 datefmt='%Y-%m-%d %I:%M:%S')
-    # new_browser = BrowserTest()
-    # new_browser.open_home()
+    logging.basicConfig(filename='log_record.log',
+    level=logging.ERROR, filemode='w', format='[%(asctime)s] [%(levelname)s] >>>  %(message)s',
+                    datefmt='%Y-%m-%d %I:%M:%S')
+    new_browser = BrowserTest()
+    new_browser.open_home()
     # new_browser.check_empty_link()
-    # # new_browser.check_regular_link()
-    # # new_browser.check_redirect()
+    # new_browser.check_regular_link()
+    # new_browser.check_redirect()
     # new_browser.integration()
-    # new_browser.close_browser()
+    new_browser.close_browser()

@@ -109,6 +109,8 @@ jobs:
     # needs: setup-build-publish-deploy
     name: run the integration tests
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./selenium_test
     steps:
       - uses: actions/checkout@v2
       - name: Setting up Python 3.6
@@ -119,9 +121,18 @@ jobs:
         uses: py-actions/py-dependency-install@v2
         with:
           path: ./selenium_test/requirements.txt
-      - name: Testing with PyTest
+      - name: setup-firefox
+        uses: browser-actions/setup-firefox@latest
+        run: firefox --version
+        working-directory: ${{env.working-directory}}
+      - name: setup-geckodriver
+        uses: browser-actions/setup-geckodriver@latest
+        run: geckodriver --version
+        working-directory: ${{env.working-directory}}
+      - name: Testing with selenium
         run: >
-          python3 ./selenium_test/selenium_test.py
+          python3 selenium_test.py
+        working-directory: ${{env.working-directory}}
 
 
 
