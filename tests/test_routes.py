@@ -7,7 +7,8 @@ def test_base_route(app, client):
     url = "/"
     response = client.get(url)
     # assert response.headers[1] == ('Content-Length', '17')
-    assert response.status_code == 200
+    # assert response.status_code == 200
+    assert response.status_code == 400
 
 
 # ----------2-----------
@@ -17,7 +18,8 @@ def test_None_Existing_route(app, client):
     response = client.get(url)
     # assert response.headers[1] == ('Content-Length', '136')
     # redirect back to base route
-    assert response.status_code == 200
+    # assert response.status_code == 200
+    assert response.status_code == 400
 
 
 # ----------3-----------
