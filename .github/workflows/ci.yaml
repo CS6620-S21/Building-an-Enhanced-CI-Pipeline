@@ -51,7 +51,6 @@ jobs:
   #         python3 -m pytest -rsA tests/ -vv --cov-fail-under=90 -W
   #         ignore::DeprecationWarning
   setup-build-publish-deploy:
-    needs: pyTest
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
