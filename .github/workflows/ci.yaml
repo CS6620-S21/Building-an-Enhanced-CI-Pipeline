@@ -7,49 +7,49 @@ env:
   DEPLOYMENT_NAME: gke-test
   IMAGE: static-site
 jobs:
-  formatting:
-    name: Autoyapf PEP-8 Formatting
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: '${{ github.head_ref }}'
-      - name: Importing formatting
-        uses: mritunjaysharma394/autoyapf@v2
-        with:
-          args: '--style pep8 --recursive --in-place .'
-      - name: Checking for modified files
-        run: >-
-          echo ::set-output name=modified::$(if git diff-index --quiet HEAD --;
-          then echo "false"; else echo "true"; fi)
-      - name: Pushing changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: >
-          git config --global user.name github-actions
-          git config --global user.email
-          '${GITHUB_ACTOR}@users.noreply.github.com'  
-          git remote set-url origin https://x-access-token:${{
-          secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "Automated autoyapf fixes"
-          git push
-  pyTest:
-    needs: formatting
-    name: Unit Test - PyTest
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setting up Python 3.6
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.6
-      - name: Installing Python dependencies from requirements.txt
-        uses: py-actions/py-dependency-install@v2
-        with:
-          path: ./requirements.txt
-      - name: Testing with PyTest
-        run: >
-          python3 -m pytest -rsA tests/ -vv --cov-fail-under=90 -W
-          ignore::DeprecationWarning
+  # formatting:
+  #   name: Autoyapf PEP-8 Formatting
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: '${{ github.head_ref }}'
+  #     - name: Importing formatting
+  #       uses: mritunjaysharma394/autoyapf@v2
+  #       with:
+  #         args: '--style pep8 --recursive --in-place .'
+  #     - name: Checking for modified files
+  #       run: >-
+  #         echo ::set-output name=modified::$(if git diff-index --quiet HEAD --;
+  #         then echo "false"; else echo "true"; fi)
+  #     - name: Pushing changes
+  #       if: steps.git-check.outputs.modified == 'true'
+  #       run: >
+  #         git config --global user.name github-actions
+  #         git config --global user.email
+  #         '${GITHUB_ACTOR}@users.noreply.github.com'  
+  #         git remote set-url origin https://x-access-token:${{
+  #         secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+  #         git commit -am "Automated autoyapf fixes"
+  #         git push
+  # pyTest:
+  #   needs: formatting
+  #   name: Unit Test - PyTest
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Setting up Python 3.6
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.6
+  #     - name: Installing Python dependencies from requirements.txt
+  #       uses: py-actions/py-dependency-install@v2
+  #       with:
+  #         path: ./requirements.txt
+  #     - name: Testing with PyTest
+  #       run: >
+  #         python3 -m pytest -rsA tests/ -vv --cov-fail-under=90 -W
+  #         ignore::DeprecationWarning
   setup-build-publish-deploy:
     needs: pyTest
     name: Setup, Build, Publish, and Deploy
@@ -160,3 +160,7 @@ jobs:
         ./kustomize build selenium_test | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
+        kubectl get pods > pods.txt
+        sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs
+        
+
