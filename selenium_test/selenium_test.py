@@ -9,8 +9,8 @@ from selenium.webdriver.firefox.options import Options
 from yaml import safe_load
 import sys
 
-with open('./resources/config.yaml') as yaml_in:
-    config = safe_load(yaml_in)
+# with open('./resources/config.yaml') as yaml_in:
+#     config = safe_load(yaml_in)
 class BrowserTest:
     def __init__(self):
         options = Options()
