@@ -123,11 +123,11 @@ jobs:
           path: ./selenium_test/requirements.txt
       - name: setup-firefox
         uses: browser-actions/setup-firefox@latest
-        run: firefox --version
+        # run: firefox --version
         working-directory: ${{env.working-directory}}
       - name: setup-geckodriver
         uses: browser-actions/setup-geckodriver@latest
-        run: geckodriver --version
+        # run: geckodriver --version
         working-directory: ${{env.working-directory}}
       - name: Testing with selenium
         run: >
