@@ -139,7 +139,7 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: Entering-into-selenium-test-folder
       run: |-
-        pushd selenium_test
+        cd selenium_test
     - name: Build
       run: |-
         docker build \
@@ -166,4 +166,4 @@ jobs:
         kubectl get services -o wide
     - name: Exiting-out-of-selenium-test
       run: |-
-        popd
+         cd ..
