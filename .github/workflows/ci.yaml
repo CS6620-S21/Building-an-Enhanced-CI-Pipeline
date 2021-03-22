@@ -133,21 +133,33 @@ jobs:
   run-load-tests:
     # needs: setup-build-publish-deploy
     name: run the load tests
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - uses: actions/checkout@v2
+    #   - name: Setting up Python 3.6
+    #     uses: actions/setup-python@v2
+    #     with:
+    #       python-version: 3.6
+    #   - name: Installing Python dependencies from requirements.txt
+    #     uses: py-actions/py-dependency-install@v2
+    #     with:
+    #       path: ./load_test/requirements.txt
+    #   - name: Testing with locust
+    #     run: >
+    #       locust -f locustfile.py --host http://34.102.157.148/ --users 5000 --spawn-rate 20 --run-time 300s --headless
+    #     working-directory: ./load_test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setting up Python 3.6
-        uses: actions/setup-python@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Load Test
+        uses: apardo04/locust-github-action@master
         with:
-          python-version: 3.6
-      - name: Installing Python dependencies from requirements.txt
-        uses: py-actions/py-dependency-install@v2
-        with:
-          path: ./load_test/requirements.txt
-      - name: Testing with locust
-        run: >
-          locust -f LOCUSTFILE --host http://34.102.157.148/ --users 5000 --spawn-rate 20 --run-time 300s --headless
-        working-directory: ./load_test
+          LOCUSTFILE: "./load_test/locustfile.py"
+          URL:  "http://34.102.157.148/"
+          USERS: "5000"
+          RATE: "20"
+          RUNTIME: "300s"
 
 
 
