@@ -10,7 +10,7 @@ class Link(db.Document):
             required=True,
             unique=True,
         )
-        short_link = db.StringField(required=True, unique=True)
+        # short_link = db.StringField(required=True, unique=True)
         original_link = db.StringField(required=True, unique=False)
         expire_at = db.DateTimeField()
     except db.errors.DuplicateKeyError:
