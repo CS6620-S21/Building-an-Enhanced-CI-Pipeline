@@ -201,4 +201,4 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: delete-cluster-gke
       run : |-
-        gcloud container clusters delete "$GKE_CLUSTER" --region "$GKE_ZONE"
+        gcloud container clusters delete --quiet "$GKE_CLUSTER" --region "$GKE_ZONE"
