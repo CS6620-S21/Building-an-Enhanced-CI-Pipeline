@@ -16,7 +16,6 @@ jobs:
       uses: AlexanderMelde/yapf-action@master
 
   pyTest:
-    needs: formatting-check
     name: Unit Test - PyTest
     runs-on: ubuntu-latest
     steps:
@@ -116,7 +115,7 @@ jobs:
         working-directory: ./selenium_test
 
   run-load-tests:
-    needs: run-integration-tests
+    needs: setup-build-publish-deploy
     name: run the load tests
     runs-on: ubuntu-latest
     steps:

@@ -31,9 +31,9 @@ def test_case1(app, client):
         "expire_at": "2020-9-30",
     }
     # post a new test url1
-    response = client.post(
-        "/api/", data=json.dumps(test_data), content_type="application/json"
-    )
+    response = client.post("/api/", 
+                           data=json.dumps(test_data), 
+                           content_type="application/json")
 
     assert response.status_code == 200
 
@@ -50,9 +50,9 @@ def test_case2(app, client):
         "expire_at": "2020-10-28",
     }
     # post a new test url1
-    response = client.post(
-        "/api/", data=json.dumps(test_data), content_type="application/json"
-    )
+    response = client.post("/api/", 
+                           data=json.dumps(test_data), 
+                           content_type="application/json")
 
     assert response.status_code == 200
 
@@ -72,9 +72,9 @@ def test_case3(app, client):
         "expire_at": "2020-10-28",
     }
     # post a new test url1
-    response = client.post(
-        "/api/", data=json.dumps(test_data), content_type="application/json"
-    )
+    response = client.post("/api/", 
+                           data=json.dumps(test_data), 
+                           content_type="application/json")
 
     assert response.status_code == 200
 

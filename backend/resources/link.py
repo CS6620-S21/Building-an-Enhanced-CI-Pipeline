@@ -28,7 +28,8 @@ class LinkAPI(Resource):
             return "Link not found", 200
         try:
 
-            original_link = Link.objects.get_or_404(link_id=link_id)["original_link"]
+            original_link = Link.objects.get_or_404(
+                link_id=link_id)["original_link"]
             # print("original_link", original_link)
             # return redirect(original_link)
             return redirect(original_link)
@@ -43,10 +44,9 @@ class LinkAPI(Resource):
             expire_at = request_data["expire_at"].replace("/", "-")
         else:
             # set default expire_at to 14 days from now
-            expire_at = (
-                (date.today() + timedelta(days=14))
-                .strftime("%Y/%m/%d")
-                .replace("/", "-")
+            expire_at = ((date.today() +
+                          timedelta(days=14)).strftime("%Y/%m/%d").replace(
+                              "/", "-")
             )
         # request looks like this:
         # {
@@ -98,9 +98,8 @@ class LinkAPI(Resource):
 
     def short_link_generator(self, original_link):
         # convert link to bytes then to int, grab only the last ten digits
-        link_as_int = int.from_bytes(original_link.encode("utf-8"), byteorder="big") % (
-            10 ** 10
-        )
+        link_as_int = int.from_bytes(original_link.encode("utf-8"), 
+                                     byteorder="big") % (10**10)
         link_id = self.encode(link_as_int)  # 62^5 choices
         return link_id
 

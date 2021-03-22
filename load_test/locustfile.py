@@ -12,7 +12,7 @@ from locust import HttpUser, task, between
 #     wait_time = between(5.0, 9.0)
 
 class WebsiteUser(HttpUser):
-    wait_time = between(1,5)
+    wait_time = between(1, 5)
 
     @task
     def home_page(self):

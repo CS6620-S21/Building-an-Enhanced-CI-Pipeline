@@ -18,7 +18,8 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 # Config
 app.config["MONGODB_SETTINGS"] = {
     # "host": "mongodb+srv://CS6620-Team:W5N3ifJvglp1Y9SZ@cluster0.ytua9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    "host": "mongodb+srv://CS6620-Team:W5N3ifJvglp1Y9SZ@cluster0.ytua9.mongodb.net/bucicd_test_db?retryWrites=true&w=majority"
+    "host": 
+    "mongodb+srv://CS6620-Team:W5N3ifJvglp1Y9SZ@cluster0.ytua9.mongodb.net/bucicd_test_db?retryWrites=true&w=majority"
 }
 
 initialize_db(app)
