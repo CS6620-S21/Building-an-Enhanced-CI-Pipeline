@@ -157,9 +157,9 @@ jobs:
         with:
           LOCUSTFILE: "./load_test/locustfile.py"
           URL:  "http://34.102.157.148/"
-          USERS: "5000"
-          RATE: "20"
-          RUNTIME: "300s"
+          USERS: "500"
+          RATE: "10"
+          RUNTIME: "30s"
 
 
 
