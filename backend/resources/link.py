@@ -46,8 +46,7 @@ class LinkAPI(Resource):
             # set default expire_at to 14 days from now
             expire_at = ((date.today() +
                           timedelta(days=14)).strftime("%Y/%m/%d").replace(
-                              "/", "-")
-            )
+                              "/", "-"))
         # request looks like this:
         # {
         #     "original_link": "https://www.youtube.com/",
@@ -98,7 +97,7 @@ class LinkAPI(Resource):
 
     def short_link_generator(self, original_link):
         # convert link to bytes then to int, grab only the last ten digits
-        link_as_int = int.from_bytes(original_link.encode("utf-8"), 
+        link_as_int = int.from_bytes(original_link.encode("utf-8"),
                                      byteorder="big") % (10**10)
         link_id = self.encode(link_as_int)  # 62^5 choices
         return link_id
