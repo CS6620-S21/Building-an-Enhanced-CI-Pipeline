@@ -15,7 +15,7 @@ jobs:
     - name: run YAPF to test if python code is correctly formatted
       uses: 
       with:
-        args: --verbose --exclude '**/tests/**'
+        args: --verbose
 
   pyTest:
     name: Unit Test - PyTest
@@ -142,7 +142,7 @@ jobs:
           RUNTIME: "30s"
 
   delete-cluster:
-      if: always()
+      if: ${{ always() }}
       needs: [run-integration-tests, run-load-tests]
       name: delete-cluster-environment
       runs-on: ubuntu-latest
@@ -160,9 +160,6 @@ jobs:
       - name: delete-cluster-gke
         run : |-
           gcloud container clusters delete --quiet "$GKE_CLUSTER" --region "$GKE_ZONE"
-
-
-
 #     steps:
 #     - name: Checkout
 #       uses: actions/checkout@v2
