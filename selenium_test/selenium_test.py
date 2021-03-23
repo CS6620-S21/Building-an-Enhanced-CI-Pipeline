@@ -31,7 +31,7 @@ class BrowserTest:
             assert 'URL Shortener' in self.browser.title
             print("Pass openhome")
         except Exception as e:
-            logging.error("Failed open_home!!!"+ config['selenium_test_url'] +
+            logging.error("Failed open_home!!!" + config['selenium_test_url'] +
                           "\n" + traceback.format_exc())
             print("Failed open_home!!!" + "\n" + traceback.format_exc())
             sys.exit(1)
@@ -156,7 +156,7 @@ class BrowserTest:
                 "regular_link 4: github.com/yachinz/live2d-widget\n" +
                 traceback.format_exc())
             print(
-                "Failed, regular_link 4: github.com/yachinz/live2d-widget\n" + 
+                "Failed, regular_link 4: github.com/yachinz/live2d-widget\n" +
                 traceback.format_exc())
             self.count += 1
 
@@ -315,9 +315,10 @@ class BrowserTest:
             "_selenium_test/blob/master/selenium_test.py"
             print('Pass, integration test 3')
         except Exception:
-            logging.error("Failed, integration test: https://github.com/yachinz/bu_cicd" +
-                          "_example_selenium_test/blob/master/selenium_test.py/\n" +
-                          traceback.format_exc())
+            logging.error(
+                "Failed, integration test: https://github.com/yachinz/bu_cicd" +
+                "_example_selenium_test/blob/master/selenium_test.py/\n" +
+                traceback.format_exc())
             print("Failed, integration test 3" + "\n" + traceback.format_exc())
             self.count += 1
 
