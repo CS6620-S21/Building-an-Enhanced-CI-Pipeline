@@ -142,7 +142,7 @@ jobs:
           RUNTIME: "30s"
 
   delete-cluster:
-      if: false == ${{ cancelled() }}
+      if: ${{ false == cancelled() }}
       needs: [run-integration-tests, run-load-tests]
       name: delete-cluster-environment
       runs-on: ubuntu-latest
