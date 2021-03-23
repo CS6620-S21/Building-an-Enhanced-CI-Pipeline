@@ -316,8 +316,8 @@ class BrowserTest:
             print('Pass, integration test 3')
         except Exception:
             logging.error(
-                "Failed, integration test: https://github.com/yachinz/bu_cicd" +
-                "_example_selenium_test/blob/master/selenium_test.py/\n" +
+                "Failed, integration test: https://github.com/yachinz/bu_cicd" 
+                + "_example_selenium_test/blob/master/selenium_test.py/\n" +
                 traceback.format_exc())
             print("Failed, integration test 3" + "\n" + traceback.format_exc())
             self.count += 1
