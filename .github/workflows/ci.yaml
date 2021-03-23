@@ -36,7 +36,7 @@ jobs:
           ignore::DeprecationWarning
 
   setup-build-publish-deploy:
-    needs: pyTest
+    needs: [formatting-check, pyTest]
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 

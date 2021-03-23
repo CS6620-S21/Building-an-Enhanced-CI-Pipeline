@@ -77,8 +77,9 @@ class BrowserTest:
             sleep(randint(1, 3) + random())
             print("Pass testcase 1 in regular link")
         except AssertionError as e:
-            logging.error("regular_link 1: https://github.com/yachinz/format_test\n" +
-            traceback.format_exc())
+            logging.error(
+                "regular_link 1: https://github.com/yachinz/format_test\n" +
+                traceback.format_exc())
             self.count += 1
             print(
                 "Failed, regular_link 1: https://github.com/yachinz/format_test"
@@ -127,7 +128,7 @@ class BrowserTest:
             print("Pass testcase 3 in regular link")
         except AssertionError as e:
             logging.error(
-                "regular_link 3: https://github.com/yachinz/easy-animator\n" + 
+                "regular_link 3: https://github.com/yachinz/easy-animator\n" +
                 traceback.format_exc())
             print(
                 "Failed, regular_link 3: https://github.com/yachinz/easy-animator\n"
@@ -172,12 +173,11 @@ class BrowserTest:
             print("Pass testcase 1 in check_redirect")
         except AssertionError as e:
             logging.error("redirect_link 1: http://localhost:5000/aloEv2, " +
-            "https://github.com/yachinz/format_test\n" +
-            traceback.format_exc())
-            print(
-                "Failed, redirect_link 1: " + config['selenium_test_url'] +
-                'aloEv2,' + "https://github.com/yachinz/format_test" +
-                traceback.format_exc())
+                          "https://github.com/yachinz/format_test\n" +
+                          traceback.format_exc())
+            print("Failed, redirect_link 1: " + config['selenium_test_url'] +
+                  'aloEv2,' + "https://github.com/yachinz/format_test" +
+                  traceback.format_exc())
             self.count += 1
 
         # testcase2
@@ -193,7 +193,7 @@ class BrowserTest:
                 "Failed, redirect_link 2: http://localhost:5000/4nSynq, " +
                 "https://github.com/yachinz/live2d-widget\n" +
                 traceback.format_exc())
-            print("Failed, redirect_link 2: "+ config['selenium_test_url'] +
+            print("Failed, redirect_link 2: " + config['selenium_test_url'] +
                   '4nSynq, ' + "https://github.com/yachinz/live2d-widget" +
                   traceback.format_exc())
             self.count += 1
@@ -208,11 +208,11 @@ class BrowserTest:
             print("Pass testcase 3 in check_redirect")
         except AssertionError as a:
             logging.error("redirect_link 3: http://localhost:5000/1JbS5c, " +
-            "https://github.com/yachinz/easy-animator\n" +
-            traceback.format_exc())
-            print("Failed, redirect_link 3: "+ config['selenium_test_url'] +
-            "1JbS5c, " + "https://github.com/yachinz/easy-animator" +
-            traceback.format_exc())
+                          "https://github.com/yachinz/easy-animator\n" +
+                          traceback.format_exc())
+            print("Failed, redirect_link 3: " + config['selenium_test_url'] +
+                  "1JbS5c, " + "https://github.com/yachinz/easy-animator" +
+                  traceback.format_exc())
             self.count += 1
 
         # testcase4
@@ -229,8 +229,8 @@ class BrowserTest:
                 "https://github.com/yachinz/live2d-widget\n" +
                 traceback.format_exc())
             print("Failed, redirect_link 4: " + config['selenium_test_url'] +
-            "6UErY0, " + "https://github.com/yachinz/live2d-widget" +
-            traceback.format_exc())
+                  "6UErY0, " + "https://github.com/yachinz/live2d-widget" +
+                  traceback.format_exc())
             self.count += 1
 
     def integration(self):
@@ -256,8 +256,9 @@ class BrowserTest:
             assert self.browser.current_url == 'https://www.northeastern.edu/'
             print('Pass, integration test 1')
         except Exception:
-            logging.error("Failed, integration test: https://www.northeastern.edu/\n" +
-                          traceback.format_exc())
+            logging.error(
+                "Failed, integration test: https://www.northeastern.edu/\n" +
+                traceback.format_exc())
             print("Failed, integration test 1!!!" + "\n" +
                   traceback.format_exc())
             self.count += 1
@@ -339,7 +340,7 @@ if __name__ == '__main__':
     new_browser.check_empty_link()
     # new_browser.check_regular_link()
     # new_browser.check_redirect()
-    # new_browser.integration()
+    new_browser.integration()
     new_browser.close_browser()
     if new_browser.count > 0:
         sys.exit(1)
