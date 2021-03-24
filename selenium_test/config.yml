@@ -4,6 +4,7 @@ metadata:
   # Unique key of the Job instance
   name: gke-test-selenium
 spec:
+  ttlSecondsAfterFinished: 300
   template:
     metadata:
       name: gke-test-selenium
