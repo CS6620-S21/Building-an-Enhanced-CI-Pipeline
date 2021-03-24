@@ -155,16 +155,16 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
-    - name: Generating the job
-      uses: jakejarvis/wait-action@master
-      with:
-          time: '2m'
+    # - name: Generating the job
+    #   uses: jakejarvis/wait-action@master
+    #   with:
+    #       time: '2m'
     - name: Selenium_test log
       run:
-        # pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
-        # kubectl logs --follow $pods
-        kubectl get pods > pods.txt
-        sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
+        kubectl wait --for=condition=complete job/gke-test-selenium --timeout=240s
+        kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}' | xargs kubectl logs
+        # kubectl get pods > pods.txt
+        # sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
       #  kubectl delete jobs/gke-test-selenium
 
 
