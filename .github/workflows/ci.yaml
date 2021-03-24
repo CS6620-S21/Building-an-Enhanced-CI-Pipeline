@@ -148,7 +148,7 @@ jobs:
         kubectl get services -o wide
 
     - name: Selenium_test log
-      run:
+      run: |-
         kubectl wait job/gke-test-selenium --for=condition=complete --timeout=240s
         kubectl logs job/gke-test-selenium
       #  kubectl delete jobs/gke-test-selenium
