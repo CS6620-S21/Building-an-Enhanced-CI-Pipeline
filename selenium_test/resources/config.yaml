@@ -1,4 +1,4 @@
 ---
 env: DEV
-selenium_test_url: "http://34.102.157.148/"
+selenium_test_url: "http://gke-test-service-backend/"
 ...
