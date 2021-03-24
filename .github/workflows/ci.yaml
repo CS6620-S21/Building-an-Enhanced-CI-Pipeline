@@ -158,6 +158,9 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
+        kubectl get pods > pods.txt
+        sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
+
 
   # run-integration-tests:
   #   needs: wait
@@ -268,7 +271,5 @@ jobs:
 #         ./kustomize build selenium_test | kubectl apply -f -
 #         kubectl rollout status deployment/$DEPLOYMENT_NAME
 #         kubectl get services -o wide
-#         kubectl get pods > pods.txt
-#         sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs
         
 
