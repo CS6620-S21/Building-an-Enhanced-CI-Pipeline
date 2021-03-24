@@ -19,7 +19,6 @@ spec:
       labels:
         app: gke-test-load
     spec:
-      restartPolicy: Never
       containers:
       - name: gke-test-load
         image: gcr.io/PROJECT_ID/load/IMAGE:TAG
