@@ -158,9 +158,12 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
-        kubectl get pods > pods.txt
-        sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
-        kubectl delete jobs/gke-test-selenium
+        pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
+        echo $pods
+        kubectl logs --follow $pods
+      # kubectl get pods --selector=job-name=gke-test-selenium > pods.txt
+      # sed -n '2p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
+      #  kubectl delete jobs/gke-test-selenium
 
 
   # run-integration-tests:
