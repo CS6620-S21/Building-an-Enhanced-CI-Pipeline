@@ -98,7 +98,7 @@ jobs:
 #           time: '5m'
 
   run-integration-tests:
-    # needs: wait
+    needs: setup-build-publish-deploy
     name: run the integration tests
     runs-on: ubuntu-latest
 
