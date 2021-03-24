@@ -149,9 +149,10 @@ jobs:
 
     - name: Selenium_test log
       run:
-        kubectl wait --for=condition=complete job/gke-test-selenium --timeout=240s
+        kubectl wait job/gke-test-selenium --for condition=complete --timeout=240s
         pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
-        xargs kubectl logs -f $pods
+        echo $pods
+        kubectl logs $pods
       #  kubectl delete jobs/gke-test-selenium
 
 
