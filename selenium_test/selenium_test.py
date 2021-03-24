@@ -329,7 +329,6 @@ class BrowserTest:
 
 
 if __name__ == '__main__':
-    print("test the exit")
     logging.basicConfig(
         filename='log_record.log',
         level=logging.ERROR,
