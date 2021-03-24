@@ -151,7 +151,7 @@ jobs:
       run: |-
         kubectl wait job/gke-test-selenium --for=condition=complete --timeout=240s
         kubectl logs job/gke-test-selenium
-      #  kubectl delete jobs/gke-test-selenium
+        kubectl delete jobs/gke-test-selenium
 
 
   # run-integration-tests:
