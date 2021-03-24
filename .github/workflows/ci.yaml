@@ -142,7 +142,7 @@ jobs:
     - name: Publish
       run: |-
         docker push "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA"
-    Set up kustomize
+    # Set up kustomize
     - name: Set up Kustomize
       run: |-
         cd selenium_test
