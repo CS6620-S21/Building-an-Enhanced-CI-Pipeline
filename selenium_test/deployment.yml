@@ -26,6 +26,5 @@ spec:
           requests:
             cpu: 100m
             memory: 100Mi
-      restartPolicy: Never
-        # ports:
-        # - containerPort: 4000
+        ports:
+        - containerPort: 4000
