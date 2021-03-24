@@ -160,6 +160,7 @@ jobs:
         kubectl get services -o wide
         kubectl get pods > pods.txt
         sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
+        kubectl delete jobs/gke-test-selenium
 
 
   # run-integration-tests:
