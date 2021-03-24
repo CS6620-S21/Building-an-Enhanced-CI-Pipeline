@@ -2,7 +2,7 @@ name: Continuous Integration Pipeline
 'on': pull_request
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: gke-testing-cluster1
+  GKE_CLUSTER: gke-testing-cluster
   GKE_ZONE: us-central1
   DEPLOYMENT_NAME: gke-test
   IMAGE: static-site
