@@ -217,7 +217,7 @@ jobs:
           .
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
