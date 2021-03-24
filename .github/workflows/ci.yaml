@@ -109,7 +109,7 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@master
       with:
-        version: '331.0.0'
+        version: '332.0.0'
         service_account_key: ${{ secrets.GKE_SA_KEY }}
         project_id: ${{ secrets.GKE_PROJECT }}
 
@@ -149,7 +149,7 @@ jobs:
 
     - name: Selenium_test log
       run:
-        kubectl wait --for condition=complete --timeout=240s job/gke-test-selenium
+        kubectl wait job/gke-test-selenium --for=condition=complete --timeout=240s
         kubectl logs job/gke-test-selenium
       #  kubectl delete jobs/gke-test-selenium
 
