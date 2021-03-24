@@ -28,7 +28,7 @@ RUN pip3 install locust
 
 
 # run load test
-ENTRYPOINT [ "locust" ]
+ENTRYPOINT [ "locust" ,"-f","locustfile.py","--host", "http://gke-test-service-backend/", "--users", "300", "--spawn-rate", "2", "--run-time", "30s", "--headless"]
 
 
 # docker run --hostname standalone -e ATTACKED_HOST=http://34.102.157.148/  -p 8089:8089 24d8dabbd6db
