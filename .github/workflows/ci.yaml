@@ -163,8 +163,8 @@ jobs:
       run:
         # pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
         # kubectl logs --follow $pods
-      kubectl get pods > pods.txt
-      sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
+        kubectl get pods > pods.txt
+        sed -n '3p' pods.txt | awk '{print $1}' | xargs kubectl logs --follow
       #  kubectl delete jobs/gke-test-selenium
 
 
