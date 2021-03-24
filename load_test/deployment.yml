@@ -1,1 +1,30 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gke-test-load
+  labels:
+    app: gke-test-load
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gke-test-load
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: gke-test-load
+    spec:
+      containers:
+      - name: gke-test-load
+        image: gcr.io/PROJECT_ID/load/IMAGE:TAG
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8089
