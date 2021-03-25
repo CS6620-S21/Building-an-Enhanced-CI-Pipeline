@@ -47,7 +47,7 @@ class BrowserTest:
                 self.browser.find_elements_by_id('cloud_url_output')) == 0
             self.browser.find_element_by_class_name('btn.btn-primary').click()
             assert self.browser.find_element_by_class_name(
-                'invalid-feedback').is_displayed() == False
+                'invalid-feedback').is_displayed() == True
             assert len(
                 self.browser.find_elements_by_id('cloud_url_output')) == 0
             print("Pass check empty link")
