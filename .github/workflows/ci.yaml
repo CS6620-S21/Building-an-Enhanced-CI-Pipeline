@@ -158,6 +158,7 @@ jobs:
         kubectl logs --follow job/gke-test-selenium
         wait -n $completion_pid $failure_pid
         exit_code=$?
+        kubectl delete job/gke-test-selenium
         exit $exit_code
 
 
