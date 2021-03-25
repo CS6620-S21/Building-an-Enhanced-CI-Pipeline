@@ -231,6 +231,18 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
+    - name: load_test_log
+      run: |-
+        pods=$(kubectl get pods --selector=deployment-name=gke-test-load --output=jsonpath='{.items[*].metadata.name}')
+        kubectl wait --for=condition=complete deployment/gke-test-load --timeout=240s &
+        completion_pid=$!
+        kubectl wait --for=condition=failed deployment/gke-test-load --timeout=240s && exit 1 &
+        failure_pid=$! 
+        kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
+        kubectl logs --follow deployment/gke-test-load
+        wait -n $completion_pid $failure_pid
+        exit_code=$?
+        exit $exit_code
 
 #   wait-before-cleaningup:
 #     needs: run-integration-tests
