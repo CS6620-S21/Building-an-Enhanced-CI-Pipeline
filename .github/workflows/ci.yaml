@@ -151,9 +151,7 @@ jobs:
       run: |-
         pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
         kubectl wait --for=condition=complete job/gke-test-selenium --timeout=240s &
-#        completion_pid=$!
         kubectl wait --for=condition=failed job/gke-test-selenium --timeout=240s && exit 1 &
-#        failure_pid=$! 
         kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
         kubectl logs --follow job/gke-test-selenium
 #        wait -n $completion_pid $failure_pid
