@@ -18,4 +18,4 @@ spec:
       # Do not restart containers after they exit
       restartPolicy: Never
   # of retries before marking as failed.
-  backoffLimit: 4
+  backoffLimit: 0

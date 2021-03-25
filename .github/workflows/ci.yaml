@@ -149,9 +149,16 @@ jobs:
 
     - name: Selenium_test log
       run: |-
-        kubectl wait job/gke-test-selenium --for=condition=complete --timeout=240s
+#       kubectl wait job/gke-test-selenium --for=condition=complete --timeout=240s
+        kubectl wait --for=condition=complete job/myjob &
+        completion_pid=$!
+        kubectl wait --for=condition=failed job/myjob && exit 1 &
+        failure_pid=$!
+        wait -n $completion_pid $failure_pid
+        exit_code=$?
         kubectl logs job/gke-test-selenium
         kubectl delete jobs/gke-test-selenium
+        exit $exit_code
 
 
   # run-integration-tests:
