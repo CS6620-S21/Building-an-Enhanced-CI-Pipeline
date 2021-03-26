@@ -1,5 +1,8 @@
 name: Continuous Integration Pipeline
-'on': pull_request
+on:
+  push:
+    branches:
+      - main
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: gke-testing-cluster
@@ -7,37 +10,7 @@ env:
   DEPLOYMENT_NAME: gke-test
   IMAGE: static-site
 jobs:
-  formatting-check:
-    name: Formatting Check
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: run YAPF to test if python code is correctly formatted
-      uses: AlexanderMelde/yapf-action@master
-      with:
-        args: --verbose
-
-  pyTest:
-    name: Unit Test - PyTest
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setting up Python 3.6
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.6
-      - name: Installing Python dependencies from requirements.txt
-        uses: py-actions/py-dependency-install@v2
-        with:
-          path: ./requirements.txt
-      - name: Testing with PyTest
-        run: >
-          python3 -m pytest -rsA tests/ -vv --cov-fail-under=99 -W
-          ignore::DeprecationWarning
-
   setup-build-publish-deploy:
-    if: ${{ always() }}
-    needs: [formatting-check, pyTest]
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
@@ -238,5 +211,3 @@ jobs:
           kubectl delete job/gke-test-selenium
           kubectl delete ingress gke-test-service
           kubectl delete service gke-test-service-backend
-        
-
