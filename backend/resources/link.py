@@ -9,7 +9,7 @@ import string
 from datetime import date, datetime, timedelta
 
 # Constants
-WEBSITE_URL = 'http://34.102.157.148/'
+# WEBSITE_URL = 'http://34.102.157.148/'
 # WEBSITE_URL = 'http://localhost:5000/'
 # WEBSITE_URL = "http://buildingcicdforapi-ece-528-building-ci-cd-for-api.k-apps.osh.massopen.cloud/"
 
@@ -28,7 +28,8 @@ class LinkAPI(Resource):
             return "Link not found", 200
         try:
 
-            original_link = Link.objects.get_or_404(link_id=link_id)["original_link"]
+            original_link = Link.objects.get_or_404(
+                link_id=link_id)["original_link"]
             # print("original_link", original_link)
             # return redirect(original_link)
             return redirect(original_link)
@@ -43,11 +44,9 @@ class LinkAPI(Resource):
             expire_at = request_data["expire_at"].replace("/", "-")
         else:
             # set default expire_at to 14 days from now
-            expire_at = (
-                (date.today() + timedelta(days=14))
-                .strftime("%Y/%m/%d")
-                .replace("/", "-")
-            )
+            expire_at = ((date.today() +
+                          timedelta(days=14)).strftime("%Y/%m/%d").replace(
+                              "/", "-"))
         # request looks like this:
         # {
         #     "original_link": "https://www.youtube.com/",
@@ -59,11 +58,11 @@ class LinkAPI(Resource):
             if "http://" not in original_link and "https://" not in original_link:
                 original_link = "http://" + original_link
             link_id = self.short_link_generator(original_link)
-            short_link = WEBSITE_URL + link_id
+            # short_link = WEBSITE_URL + link_id
             data = {
                 "original_link": original_link,
                 "expire_at": expire_at,
-                "short_link": short_link,
+                # "short_link": short_link,
                 "link_id": link_id,
             }
             Link(**data).save()
@@ -75,15 +74,15 @@ class LinkAPI(Resource):
         except Exception as e:
             try:
                 link_id = Link.objects.get_or_404(link_id=link_id)["link_id"]
-                short_link = Link.objects.get_or_404(link_id=link_id)["short_link"]
+                # short_link = Link.objects.get_or_404(link_id=link_id)["short_link"]
                 # print("short_link", short_link)
                 return (
-                    jsonify(short_link=short_link, message="the url alreadt exist"),
+                    jsonify(link_id=link_id, message="the url alreadt exist"),
                     201,
                 )
             finally:
                 # print(e)
-                return jsonify(link_id=link_id, short_link=short_link, message=str(e))
+                return jsonify(link_id=link_id, message=str(e))
                 # return 'Oops, something went wrong', 500
 
             # print(e)
@@ -98,9 +97,8 @@ class LinkAPI(Resource):
 
     def short_link_generator(self, original_link):
         # convert link to bytes then to int, grab only the last ten digits
-        link_as_int = int.from_bytes(original_link.encode("utf-8"), byteorder="big") % (
-            10 ** 10
-        )
+        link_as_int = int.from_bytes(original_link.encode("utf-8"),
+                                     byteorder="big") % (10**10)
         link_id = self.encode(link_as_int)  # 62^5 choices
         return link_id
 

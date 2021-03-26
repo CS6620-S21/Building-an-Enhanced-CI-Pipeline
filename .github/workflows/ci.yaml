@@ -7,33 +7,17 @@ env:
   DEPLOYMENT_NAME: gke-test
   IMAGE: static-site
 jobs:
-  formatting:
-    name: Autoyapf PEP-8 Formatting
+  formatting-check:
+    name: Formatting Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: '${{ github.head_ref }}'
-      - name: Importing formatting
-        uses: mritunjaysharma394/autoyapf@v2
-        with:
-          args: '--style pep8 --recursive --in-place .'
-      - name: Checking for modified files
-        run: >-
-          echo ::set-output name=modified::$(if git diff-index --quiet HEAD --;
-          then echo "false"; else echo "true"; fi)
-      - name: Pushing changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: >
-          git config --global user.name github-actions
-          git config --global user.email
-          '${GITHUB_ACTOR}@users.noreply.github.com'  
-          git remote set-url origin https://x-access-token:${{
-          secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "Automated autoyapf fixes"
-          git push
+    - uses: actions/checkout@v2
+    - name: run YAPF to test if python code is correctly formatted
+      uses: AlexanderMelde/yapf-action@master
+      with:
+        args: --verbose
+
   pyTest:
-    needs: formatting
     name: Unit Test - PyTest
     runs-on: ubuntu-latest
     steps:
@@ -48,10 +32,12 @@ jobs:
           path: ./requirements.txt
       - name: Testing with PyTest
         run: >
-          python3 -m pytest -rsA tests/ -vv --cov-fail-under=90 -W
+          python3 -m pytest -rsA tests/ -vv --cov-fail-under=99 -W
           ignore::DeprecationWarning
+
   setup-build-publish-deploy:
-    needs: pyTest
+    if: ${{ always() }}
+    needs: [formatting-check, pyTest]
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
@@ -71,11 +57,8 @@ jobs:
 
     - run: |-
         gcloud --quiet auth configure-docker
-#     - run: |-
-#         gcloud container clusters create-auto "$GKE_CLUSTER" --region us-central1
-    # Get the GKE credentials so we can deploy to the cluster
-#     - run: |-
-#         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+    # - run: |-
+    #     gcloud container clusters create-auto "$GKE_CLUSTER" --region "$GKE_ZONE"
     - uses: google-github-actions/get-gke-credentials@main
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
@@ -114,6 +97,71 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
+    # Setup gcloud CLI
+    - uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '332.0.0'
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+
+    # Configure Docker to use the gcloud command-line tool as a credential
+    # helper for authentication
+
+    - run: |-
+        gcloud --quiet auth configure-docker
+    - uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GKE_SA_KEY }}
+    - name: Build
+      run: |-
+        cd selenium_test
+        docker build \
+          --tag "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+          .
+    - name: Publish
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA"
+    # Set up kustomize
+    - name: Set up Kustomize
+      run: |-
+        cd selenium_test
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+    - name: Deploy
+      run: |-
+        cd selenium_test
+        ./kustomize edit set image gcr.io/PROJECT_ID/selenium/IMAGE:TAG=gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA
+        ./kustomize build . | kubectl apply -f -
+        kubectl get services -o wide
+
+    - name: Selenium_test log
+      run: |-
+        pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
+        kubectl wait --for=condition=complete job/gke-test-selenium --timeout=240s &
+        completion_pid=$!
+        kubectl wait --for=condition=failed job/gke-test-selenium --timeout=240s && exit 1 &
+        failure_pid=$! 
+        kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
+        kubectl logs --follow job/gke-test-selenium
+        wait -n $completion_pid $failure_pid
+        exit_code=$?
+        exit $exit_code
+
+  run-load-tests:
+    if: ${{ always() }}
+    needs: run-integration-tests
+    name: run load tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@master
       with:
@@ -126,11 +174,6 @@ jobs:
 
     - run: |-
         gcloud --quiet auth configure-docker
-#     - run: |-
-#         gcloud container clusters create-auto "$GKE_CLUSTER" --region us-central1
-    # Get the GKE credentials so we can deploy to the cluster
-#     - run: |-
-#         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - uses: google-github-actions/get-gke-credentials@main
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
@@ -138,25 +181,64 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: Build
       run: |-
+        cd load_test
         docker build \
-          --tag "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA" \
+          --tag "gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
-          selenium_test
+          .
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
+        cd load_test
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     - name: Deploy
-      env:
-        PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-        IMAGE: static-site
       run: |-
-        ./kustomize edit set image selenium-test=gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA
-        ./kustomize build selenium_test | kubectl apply -f -
+        cd load_test
+        ./kustomize edit set image gcr.io/PROJECT_ID/load/IMAGE:TAG=gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA
+        ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
+    - name: load_test_log
+      run: |-
+        pods=$(kubectl get pods --selector=job-name=gke-test-load --output=jsonpath='{.items[*].metadata.name}')
+        kubectl wait --for=condition=complete job/gke-test-load --timeout=240s &
+        completion_pid=$!
+        kubectl wait --for=condition=failed job/gke-test-load --timeout=240s && exit 1 &
+        failure_pid=$! 
+        kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
+        kubectl logs --follow job/gke-test-load
+        wait -n $completion_pid $failure_pid
+        exit_code=$?
+        exit $exit_code
+
+
+  delete-service:
+    if: ${{ always() }}
+    needs: [run-load-tests]
+    name: delete-cluster-environment
+    runs-on: ubuntu-latest
+    steps:
+    - uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '331.0.0'
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+    - uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GKE_SA_KEY }}
+    - name: delete-service-gke
+      run : |-
+          kubectl delete deployment gke-test
+          kubectl delete job/gke-test-load
+          kubectl delete job/gke-test-selenium
+          kubectl delete ingress gke-test-service
+          kubectl delete service gke-test-service-backend
+        
+

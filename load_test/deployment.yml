@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-test-selenium
+  name: gke-test-load
   labels:
-    app: gke-test-selenium
+    app: gke-test-load
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gke-test-selenium
+      app: gke-test-load
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,14 +17,14 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-test-selenium
+        app: gke-test-load
     spec:
       containers:
-      - name: gke-test-selenium
-        image: gcr.io/PROJECT_ID/selenium/IMAGE:TAG
+      - name: gke-test-load
+        image: gcr.io/PROJECT_ID/load/IMAGE:TAG
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 4000
+        - containerPort: 8089
