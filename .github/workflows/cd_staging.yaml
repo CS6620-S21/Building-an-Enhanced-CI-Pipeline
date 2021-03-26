@@ -173,7 +173,6 @@ jobs:
         cd load_test
         ./kustomize edit set image gcr.io/PROJECT_ID/load/IMAGE:TAG=gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
     - name: load_test_log
       run: |-
