@@ -1,5 +1,5 @@
 name: Continuous Integration Pipeline
-'on': pull_request
+# 'on': pull_request
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: gke-testing-cluster
