@@ -32,3 +32,4 @@ ENTRYPOINT [ "locust" ,"-f","locustfile.py","--host", "http://gke-test-service-b
 
 
 # docker run --hostname standalone -e ATTACKED_HOST=http://34.102.157.148/  -p 8089:8089 24d8dabbd6db
+
