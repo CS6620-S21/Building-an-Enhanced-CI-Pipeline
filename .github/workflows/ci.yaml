@@ -90,7 +90,7 @@ jobs:
         kubectl get services -o wide
 
   run-integration-tests:
-    needs: wait
+    needs: setup-build-publish-deploy
     name: run the integration tests
     runs-on: ubuntu-latest
     steps:
@@ -115,7 +115,8 @@ jobs:
         working-directory: ./selenium_test
 
   run-load-tests:
-    needs: wait
+    if: ${{ always() }}
+    needs: run-integration-tests
     name: run the load tests
     runs-on: ubuntu-latest
     steps:
