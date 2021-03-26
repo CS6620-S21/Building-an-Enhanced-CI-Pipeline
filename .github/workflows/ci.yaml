@@ -253,21 +253,24 @@ jobs:
 #         with:
 #           time: '5m'
 
-#   delete-cluster:
-#     needs: wait-before-cleaningup
-#     name: delete-cluster-environment
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: google-github-actions/setup-gcloud@master
-#       with:
-#         version: '331.0.0'
-#         service_account_key: ${{ secrets.GKE_SA_KEY }}
-#         project_id: ${{ secrets.GKE_PROJECT }}
-#     - uses: google-github-actions/get-gke-credentials@main
-#       with:
-#         cluster_name: ${{ env.GKE_CLUSTER }}
-#         location: ${{ env.GKE_ZONE }}
-#         credentials: ${{ secrets.GKE_SA_KEY }}
-#     - name: delete-cluster-gke
-#       run : |-
-#         gcloud container clusters delete --quiet "$GKE_CLUSTER" --region "$GKE_ZONE"
+  delete-cluster:
+    needs: run-load-tests
+    name: delete-cluster-environment
+    runs-on: ubuntu-latest
+    steps:
+    - uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '331.0.0'
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+    - uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GKE_SA_KEY }}
+    - name: delete-cluster-gke
+      run : |-
+         kubectl delete deployment gke-test
+         kubectl delete job gke-test-load
+         kubectl delete ingress gke-test-service
+         kubectl delete service gke-test-service-backend
