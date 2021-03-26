@@ -340,7 +340,7 @@ if __name__ == '__main__':
     new_browser.check_empty_link()
     # new_browser.check_regular_link()
     # new_browser.check_redirect()
-    # new_browser.integration()
+    new_browser.integration()
     new_browser.close_browser()
     if new_browser.count > 0:
         sys.exit(1)
