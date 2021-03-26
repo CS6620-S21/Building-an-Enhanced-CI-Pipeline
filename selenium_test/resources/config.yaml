@@ -1,4 +1,4 @@
 ---
 env: DEV
-selenium_test_url: "http://localhost:5000/"
+selenium_test_url: "http://gke-test-service-backend/"
 ...
