@@ -41,11 +41,12 @@ Brian plays the role of an operator who is responsible for deploying the changes
 - Failed builds and tests will alert developers
 
 #### In-Scope Features:
-- Allow adding and running of integration tests (Either Selenium or Cypress tests) in CI and after deployment to Kubernetes
+- Allow adding and running of integration tests (Selenium) and Load tests (using Locust) in CI and after deployment to Kubernetes
 - The API being developed should have high availability, a failed test should not bring down the service
 - Every commit or pull-request by a developer will go through CI/CD/CT pipeline, must pass all tests before being deployed
 - Ensure the security of secrets and sensitive data/tokens in the pipeline
 - Allow deployment on Kubernetes only after unit tests and integration tests pass. 
+- REST API to get the selenium and load test results continuously 
 
 #### Out-of-Scope Features (not delivered as part of MVP):
 - Backwards compatibility with Jenkins
@@ -54,7 +55,8 @@ Brian plays the role of an operator who is responsible for deploying the changes
 
 ## 4. Solution Concept
 #### The system components of the architectural design is as follows:
-- GitHub Actions for unit and integration testing and deployment
+- GitHub Actions for unit, integration and load testing and deployment
+- Locust for performing load tests
 - CLI tool for setting up GitHub Actions workflow yaml files and viewing logs
 - Kubernetes Actions to deploy from GitHub
 - Docker for containerizing web app
@@ -76,7 +78,7 @@ We will be developing unit tests and end-to-end API integration tests alongside 
 
 ## 5. Acceptance Criteria
 Minimum acceptance criteria is a enhanced CI/CD/CT pipeline for an API developed and tested with our example URL shortener API. It will detect all commits and pull requests in a GitHub repository, and run the pipeline defined by our GitHub actions configurations. This will build a docker image and deploy the changes to a running production server with no stoppage.
-- Add integration test in CI pipeline
+- Add integration tests and laod tests in CI pipeline
 - Create a staging environment to perform application testing
 - Any code that does not build or passes tests will not make it to production
 - Make sure that application on production environment gets tested continuously
@@ -87,24 +89,34 @@ Release 1 (Deadline: Feb 23, Demo1: Feb 26)
 - Configure the previous code base and deploy a code change to OpenShift
   
 Release 2 (Deadline: Mar 9, Demo2: Mar 12)
-- Create the application testing environment for CI pipleine
-- Automate the integration tests using Selenium/cypress in CI pipeline
+- Create the application testing environment for CI pipeline
+- Deployment of the application manually on Google Kubernetes Engine 
+- Automate the integration tests (Selenium) and load tests (Locust) in CI pipeline
   
 Release 3 (Deadline: Mar 23, Demo3: Mar 26)
 - Creating the staging environment in CD pipeline
-- Automate the integration tests using Selenium/cypress in CD pipeline
+- Deploying and automating deployment of the application on Google Kubernetes Engine
+- Automate the integration tests (Selenium) and load tests (Locust) in CD pipeline
   
 Release 4 (Deadline: Apr 6, Demo4: Apr 9) 
 - Create the production envrionment for continuous testing
 - Perform continuous testing
+- Complete Documentation for the learnings
+- Create REST API to fetch the logs of integration and load tests
   
 Release 5 (Deadline: end of semester)
-- Complete documentation and make sure every part is functional, stable, and verified
+- Make sure every part is functional, stable, and verified
 - Final video
 
 ## 7. Sprint demos and presentations
 
-- [Sprint 1 presentation](https://northeastern-my.sharepoint.com/:p:/r/personal/mahapatra_an_northeastern_edu/_layouts/15/Doc.aspx?sourcedoc=%7B106CE9C6-8DD2-4002-A918-8750DDDD8A0F%7D&file=Enahanced%20CI_CD%20pipeline%20-%20Sprint%201.pptx&wdOrigin=OFFICECOM-WEB.START.REC&ct=1614736027095&action=edit&mobileredirect=true)
+- [Sprint 1 presentation](https://drive.google.com/file/d/1lyJXW9O5FHLuR44W96lfd_3f_qhILI5b/view?usp=sharing)
+- [Sprint 2 presentation](https://drive.google.com/file/d/1KEYMqCRR8AGZ9b5MrpuiLmRe5J2mXfeS/view?usp=sharing)
+- [Sprint 3 presentation](https://drive.google.com/file/d/1xEKhIZ2uhDqj5PfDZ5nrKpJwAgoEFW9s/view?usp=sharing)
+
+- [Sprint 1 Demo]
+- [Sprint 2 Demo]
+- [Sprint 3 Demo]
 
 ## 8. Other repositories
 
