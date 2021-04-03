@@ -130,7 +130,7 @@ Using Cloud Shell:
    
 3. Copy the external IP address to the clipboard and access your application through a web browser.   
 
-To avoid incurring charges to your Google Cloud account for the resources used, either delete the project that contains the resources or keep th project and delete individual resources. 
+**To avoid incurring charges to your Google Cloud account for the resources used, either delete the project that contains the resources or keep th project and delete individual resources.**   
 
 1. Delete the Service:   
    `kubectl delete service [SERVICE_NAME]`
