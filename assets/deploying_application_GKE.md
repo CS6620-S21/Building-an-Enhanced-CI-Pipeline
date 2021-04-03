@@ -2,22 +2,24 @@
 
 Pods: Kubernetes represents applications as Pods, which are scalable units holding one or more containers. The Pod is the smallest deployable unit in Kubernetes. Usually, you deploy Pods as a set of replicas that can be scaled and distributed together across your cluster. One way to deploy a set of replicas is through a Kubernetes Deployment.
 
+**Creation of a Google Cloud account:**   
+
 - Create a Google Cloud account.
 - Once the account is created, visit the Kubernetes Engine page in the Google Cloud Console.
 - Create a new project by entering a name for the project 
 - Wait for the API and related services to be enabled. This can take several minutes.
 
-<h4>There are two ways to access your project:</h4>
+**There are two ways to access your project:**   
+
 - Option A: Using Cloud Shell (Google) which comes preinstalled with the gcloud, docker, and kubectl command-line tools. You do not need to install these command lines.  
 
 - Option B: Use command-line tools locally  
-      - Install the Cloud SDK, which includes the gcloud command-line tool.  
-      - Using the gcloud command line tool, install the Kubernetes command-line tool. kubectl is used to communicate with Kubernetes, which is the cluster orchestration system of GKE clusters: gcloud components install kubectl  
-      - Install Docker Community Edition (CE) on your workstation. You use this to build a container image for the application.  
-      - Install the Git source control tool to fetch the sample application from GitHub.  
+            - Install the Cloud SDK, which includes the gcloud command-line tool.  
+            - Using the gcloud command line tool, install the Kubernetes command-line tool. kubectl is used to communicate with Kubernetes, which is the cluster orchestration system of GKE clusters: gcloud components install kubectl  
+            - Install Docker Community Edition (CE) on your workstation. You use this to build a container image for the application.  
+            - Install the Git source control tool to fetch the sample application from GitHub.  
 
 
-     
 **Before deploying your web application to GKE, you must package the application source code as a Docker image.**
 - To build a Docker image, you need source code and a Dockerfile. A Dockerfile contains instructions on how the image is built.
 
@@ -49,24 +51,26 @@ Pods: Kubernetes represents applications as Pods, which are scalable units holdi
    
  1. Enable the Container Registry API for the Google Cloud project you are working on:    
     Eg: 
-       gcloud services enable containerregistry.googleapis.com
+       `gcloud services enable containerregistry.googleapis.com`  
 
  2. Configure the Docker command-line tool to authenticate to Container Registry:  
     Eg:
-       gcloud auth configure-docker
+       `gcloud auth configure-docker`  
 
 3. Push the Docker image that you just built to Container Registry:  
     Eg: 
-       docker push gcr.io/${PROJECT_ID}/hello-app:v1
+       `docker push gcr.io/${PROJECT_ID}/hello-app:v1`  
        
-**After pushing the Docker image to Container Registry, you will create a [GKE cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture)
+**After pushing the Docker image to Container Registry, you will create a [GKE cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture).  
  A GKE cluster consists of a pool of Compute Engine VM instances running Kubernetes, the open source cluster orchestration system that powers GKE.**
  
 1. Set your project ID option for `gcloud` tool:   
    Eg: 
       `gcloud config set project $PROJECT_ID`
 
-2. Set your zone or region. Depending on the mode of operation that you choose to use in GKE, specify a default zone or region. If you use the Standard mode, your cluster is zonal (for this tutorial), so set your default compute zone. If you use the Autopilot mode, your cluster is regional, so set your default compute region. Choose the zone or region that is closest to you.
+2. Set your zone or region. Depending on the mode of operation that you choose to use in GKE, specify a default zone or region. 
+   
+   NOTE: If you use the Standard mode, your cluster is zonal, so set your default compute zone. If you use the Autopilot mode, your cluster is regional, so set your default              compute region. Choose the zone or region that is closest to you.
   
    Standard cluster, such as us-west1-a:  
    Eg: 
@@ -85,8 +89,9 @@ Pods: Kubernetes represents applications as Pods, which are scalable units holdi
  4. Once the command finishes, you can see the cluster's three noded (created by default) by running the below commands:    
     `kubectl get nodes`
     
-**Once the cluster is ready, you can go ahead and deploy the application to GKE. You will create replicas(pods) for deployment
+**Once the cluster is ready, you can go ahead and deploy the application to GKE. You will create replicas(pods) for deployment.  
 One Deployment Pod contains only one container (the docker image of your application).**  
+
 NOTE: You also create a HorizontalPodAutoscaler resource that scales the number of Pods from 3 to a number between 1 and 5, based on CPU load.
 
 1. Ensure that you are connected to your GKE cluster.   
@@ -105,18 +110,20 @@ NOTE: You also create a HorizontalPodAutoscaler resource that scales the number 
     `kubectl get pods`
     
  **Now that the pods are working, you need to expose the web application to the internet.**  
+ 
  While Pods do have individually-assigned IP addresses, those IPs can only be reached from inside your cluster.
  
 You need a way to   
     1) Group Pods together into one static hostname   
     2) Expose a group of Pods outside the cluster, to the internet.
     
-This can be achieved by using ["Kubernetes Services"](https://kubernetes.io/docs/concepts/services-networking/service/)    
-Services group Pods into one static IP address, reachable from any Pod inside the cluster. GKE also assigns a DNS hostname to that static IP.
+This can be achieved by using ["Kubernetes Services"](https://kubernetes.io/docs/concepts/services-networking/service/).  
 
-The default Service type in GKE is called ClusterIP, where the Service gets an IP address reachable only from inside the cluster. To expose a Kubernetes Service outside the cluster, create a Service of type "LoadBalancer". This type of Service spawns an External Load Balancer IP for a set of Pods, reachable through the internet.
+<p>Services group Pods into one static IP address, reachable from any Pod inside the cluster. GKE also assigns a DNS hostname to that static IP.
+The default Service type in GKE is called ClusterIP, where the Service gets an IP address reachable only from inside the cluster. To expose a Kubernetes Service outside the cluster, create a Service of type "LoadBalancer". This type of Service spawns an External Load Balancer IP for a set of Pods, reachable through the internet.</p>
 
-Using Cloud Shell:  
+**Using Cloud Shell:**  
+
 1. Use the `kubectl expose` command to generate a Kubernetes Service for your application deployment.  
    Eg: 
       `kubectl expose deployment hello-app --name=hello-app-service --type=LoadBalancer --port 80 --target-port 8080`
