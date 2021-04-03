@@ -1,17 +1,6 @@
 import time
 from locust import HttpUser, task, between
 
-# def index(l):
-#     l.client.get("/")
-
-# class UserBehavior(TaskSet):
-#     tasks = {index: 1}
-
-# class WebsiteUser(HttpLocust):
-#     task_set = UserBehavior
-#     wait_time = between(5.0, 9.0)
-
-
 class WebsiteUser(HttpUser):
     wait_time = between(1, 5)
 
@@ -33,20 +22,3 @@ class WebsiteUser(HttpUser):
 
     # def on_start(self):
     #     self.client.post("/login", json={"username":"foo", "password":"bar"})
-
-
-# class UserBehavior(TaskSet):
-
-#     @task(1)
-#     def create_post(self):
-#         headers = {'content-type': 'application/json','Accept-Encoding':'gzip'}
-#         self.client.post("/posts",data= json.dumps({
-#       "title": "foo",
-#       "body": "bar",
-#       "userId": 1
-#     }),
-#     headers=headers,
-#     name = "Create a new post")
-
-# class WebsiteUser(HttpLocust):
-#     task_set = UserBehavior
