@@ -179,7 +179,7 @@ jobs:
 
 
   run-load-tests:
-    needs: run-integration-tests
+    needs: setup-build-publish-deploy
     name: run load tests
     runs-on: ubuntu-latest
 
