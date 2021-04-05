@@ -71,8 +71,8 @@ jobs:
 
     - run: |-
         gcloud --quiet auth configure-docker
-    - run: |-
-        gcloud container clusters create-auto "$GKE_CLUSTER" --region "$GKE_ZONE"
+    # - run: |-
+    #     gcloud container clusters create-auto "$GKE_CLUSTER" --region "$GKE_ZONE"
     # Get the GKE credentials so we can deploy to the cluster
 #     - run: |-
 #         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
