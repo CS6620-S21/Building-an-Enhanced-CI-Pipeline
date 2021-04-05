@@ -169,4 +169,5 @@ jobs:
         cd production_env_test
         ./kustomize edit set image gcr.io/PROJECT_ID/production_env_test/IMAGE:TAG=gcr.io/$PROJECT_ID/production_env_test/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
+        kubectl rollout status deployment/gke-production-env-test
         kubectl get services -o wide
