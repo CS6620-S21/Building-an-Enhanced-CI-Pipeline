@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-pro-env
+  name: gke-test
   labels:
-    app: gke-pro-env
+    app: gke-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gke-pro-env
+      app: gke-test
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,10 +17,10 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-pro-env
+        app: gke-test
     spec:
       containers:
-      - name: gke-pro-env
+      - name: gke-test
         image: gcr.io/PROJECT_ID/IMAGE:TAG
         resources:
           requests:

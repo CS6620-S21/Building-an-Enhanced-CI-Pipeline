@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-pro-env
+  name: gke-production-env-test
   labels:
-    app: gke-pro-env
+    app: gke-production-env-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gke-pro-env
+      app: gke-production-env-test
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,14 +17,14 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-pro-env
+        app: gke-production-env-test
     spec:
       containers:
-      - name: gke-pro-env
-        image: gcr.io/PROJECT_ID/IMAGE:TAG
+      - name: gke-production-env-test
+        image: gcr.io/PROJECT_ID/production_env_test/IMAGE:TAG
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 5000
+        - containerPort: 4000
