@@ -155,7 +155,7 @@ jobs:
   
   delete-service:
     if: ${{ always() }}
-    needs: [run-load-tests]
+    needs: [run-integration-tests]
     name: delete-cluster-environment
     runs-on: ubuntu-latest
     steps:
