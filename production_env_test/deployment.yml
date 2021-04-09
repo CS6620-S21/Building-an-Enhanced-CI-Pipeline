@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-test-selenium
+  name: gke-production-env-test
   labels:
-    app: gke-test-selenium
+    app: gke-production-env-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gke-test-selenium
+      app: gke-production-env-test
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,11 +17,11 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-test-selenium
+        app: gke-production-env-test
     spec:
       containers:
-      - name: gke-test-selenium
-        image: gcr.io/PROJECT_ID/selenium/IMAGE:TAG
+      - name: gke-production-env-test
+        image: gcr.io/PROJECT_ID/production_env_test/IMAGE:TAG
         resources:
           requests:
             cpu: 100m
