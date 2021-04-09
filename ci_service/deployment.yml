@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-test-load
+  name: gke-test
   labels:
-    app: gke-test-load
+    app: gke-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gke-test-load
+      app: gke-test
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,14 +17,14 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-test-load
+        app: gke-test
     spec:
       containers:
-      - name: gke-test-load
-        image: gcr.io/PROJECT_ID/load/IMAGE:TAG
+      - name: gke-test
+        image: gcr.io/PROJECT_ID/IMAGE:TAG
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 8089
+        - containerPort: 5000

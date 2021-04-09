@@ -1,26 +1,26 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: gke-test-service
+  name: gke-pro-env-service
   annotations:
     kubernetes.io/ingress.global-static-ip-name: url-shortener-app-cs6620
   labels:
-    app: gke-test
+    app: gke-pro-env
 spec:
   backend:
-    serviceName: gke-test-service-backend
+    serviceName: gke-pro-env-backend
     servicePort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gke-test-service-backend
+  name: gke-pro-env-backend
   labels:
-    app: gke-test
+    app: gke-pro-env
 spec:
   type: NodePort
   selector:
-    app: gke-test
+    app: gke-pro-env
   ports:
   - port: 80
     targetPort: 5000
