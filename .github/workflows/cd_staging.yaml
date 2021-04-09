@@ -210,5 +210,4 @@ jobs:
           kubectl delete deployment gke-test
           kubectl delete job/gke-test-load
           kubectl delete job/gke-test-selenium
-          kubectl delete ingress gke-test-service
           kubectl delete service gke-test-service-backend
