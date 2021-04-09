@@ -6,8 +6,6 @@ RUN apt-get update && apt-get install -y build-essential \
     python3 \
     python3-dev \
     python3-pip \
-    vim \
-    xvfb \
     firefox
 
 
@@ -44,7 +42,3 @@ RUN pip3 install -r /var/tmp/selenium_test/requirements.txt
 # RUN chmod +x /var/tmp/selenium_test/selenium_test.py
 ENTRYPOINT [ "python3" ]
 CMD [ "selenium_test.py" ]
-
-# Run the Selenium app with the headless option and output to file. Text appended
-# to the file during execution indicates errors; an empty file is a success.
-# CMD  /var/tmp/selenium_test/selenium_test.py > error.txt
