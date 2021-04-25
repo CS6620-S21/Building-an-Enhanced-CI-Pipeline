@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gke-test-staging
+  labels:
+    app: gke-test-staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gke-test-staging
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: gke-test-staging
+    spec:
+      containers:
+      - name: gke-test-staging
+        image: gcr.io/PROJECT_ID/IMAGE:TAG
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 5000

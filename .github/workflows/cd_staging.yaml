@@ -7,7 +7,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: gke-testing-cluster
   GKE_ZONE: us-central1
-  DEPLOYMENT_NAME: gke-test
+  DEPLOYMENT_NAME: gke-test-staging
   IMAGE: static-site
 jobs:
   setup-build-publish-deploy:
@@ -52,13 +52,13 @@ jobs:
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
-        cd ci_service
+        cd staging_service
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        cd ci_service
+        cd staging_service
         ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
@@ -92,36 +92,36 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: Build
       run: |-
-        cd selenium_test
+        cd selenium_test_staging
         docker build \
-          --tag "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA" \
+          --tag "gcr.io/$PROJECT_ID/selenium_staging/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/selenium_staging/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
-        cd selenium_test
+        cd selenium_test_staging
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     - name: Deploy
       run: |-
-        cd selenium_test
-        ./kustomize edit set image gcr.io/PROJECT_ID/selenium/IMAGE:TAG=gcr.io/$PROJECT_ID/selenium/$IMAGE:$GITHUB_SHA
+        cd selenium_test_staging
+        ./kustomize edit set image gcr.io/PROJECT_ID/selenium_staging/IMAGE:TAG=gcr.io/$PROJECT_ID/selenium_staging/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl get services -o wide
     - name: Selenium_test log
       run: |-
-        pods=$(kubectl get pods --selector=job-name=gke-test-selenium --output=jsonpath='{.items[*].metadata.name}')
-        kubectl wait --for=condition=complete job/gke-test-selenium --timeout=240s &
+        pods=$(kubectl get pods --selector=job-name=gke-test-selenium-staging --output=jsonpath='{.items[*].metadata.name}')
+        kubectl wait --for=condition=complete job/gke-test-selenium-staging --timeout=240s &
         completion_pid=$!
-        kubectl wait --for=condition=failed job/gke-test-selenium --timeout=240s && exit 1 &
+        kubectl wait --for=condition=failed job/gke-test-selenium-staging --timeout=240s && exit 1 &
         failure_pid=$! 
         kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
-        kubectl logs --follow job/gke-test-selenium
+        kubectl logs --follow job/gke-test-selenium-staging
         wait -n $completion_pid $failure_pid
         exit_code=$?
         exit $exit_code
@@ -155,36 +155,36 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: Build
       run: |-
-        cd load_test
+        cd load_test_staging
         docker build \
-          --tag "gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA" \
+          --tag "gcr.io/$PROJECT_ID/load_staging/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/load_staging/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
-        cd load_test
+        cd load_test_staging
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     - name: Deploy
       run: |-
-        cd load_test
-        ./kustomize edit set image gcr.io/PROJECT_ID/load/IMAGE:TAG=gcr.io/$PROJECT_ID/load/$IMAGE:$GITHUB_SHA
+        cd load_test_staging
+        ./kustomize edit set image gcr.io/PROJECT_ID/load_staging/IMAGE:TAG=gcr.io/$PROJECT_ID/load_staging/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl get services -o wide
     - name: load_test_log
       run: |-
-        pods=$(kubectl get pods --selector=job-name=gke-test-load --output=jsonpath='{.items[*].metadata.name}')
-        kubectl wait --for=condition=complete job/gke-test-load --timeout=240s &
+        pods=$(kubectl get pods --selector=job-name=gke-test-load-staging --output=jsonpath='{.items[*].metadata.name}')
+        kubectl wait --for=condition=complete job/gke-test-load-staging --timeout=240s &
         completion_pid=$!
-        kubectl wait --for=condition=failed job/gke-test-load --timeout=240s && exit 1 &
+        kubectl wait --for=condition=failed job/gke-test-load-staging --timeout=240s && exit 1 &
         failure_pid=$! 
         kubectl wait --for=condition=ContainersReady pods/$pods --timeout=240s
-        kubectl logs --follow job/gke-test-load
+        kubectl logs --follow job/gke-test-load-staging
         wait -n $completion_pid $failure_pid
         exit_code=$?
         exit $exit_code
@@ -207,7 +207,7 @@ jobs:
         credentials: ${{ secrets.GKE_SA_KEY }}
     - name: delete-service-gke
       run : |-
-          kubectl delete deployment gke-test
-          kubectl delete job/gke-test-load
-          kubectl delete job/gke-test-selenium
-          kubectl delete service gke-test-service-backend
+          kubectl delete deployment gke-test-staging
+          kubectl delete job/gke-test-load-staging
+          kubectl delete job/gke-test-selenium-staging
+          kubectl delete service gke-test-staging-service-backend
