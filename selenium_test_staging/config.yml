@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
       - name: gke-test-selenium-staging
-        image: gcr.io/PROJECT_ID/selenium-staging/IMAGE:TAG
+        image: gcr.io/PROJECT_ID/selenium_staging/IMAGE:TAG
         resources:
           requests:
             cpu: 100m
