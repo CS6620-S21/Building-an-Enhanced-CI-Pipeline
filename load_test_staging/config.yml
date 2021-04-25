@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Unique key of the Job instance
+  name: gke-test-load-staging
+spec:
+  template:
+    metadata:
+      name: gke-test-load-staging
+    spec:
+      containers:
+      - name: gke-test-load-staging
+        image: gcr.io/PROJECT_ID/load_staging/IMAGE:TAG
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      # Do not restart containers after they exit
+      restartPolicy: Never
+  # of retries before marking as failed.
+  backoffLimit: 0
