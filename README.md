@@ -87,7 +87,7 @@ Release 1 (Deadline: Feb 23, Demo1: Feb 26)
 - Configure the previous code base and deploy a code change to OpenShift
   
 Release 2 (Deadline: Mar 9, Demo2: Mar 12)
-- Manully run integration test and load test on our application
+- Manually run integration test and load test on our application
 - Set up the CI pipeline
 - Automate deployment of the flask app on kubernetes GCP
 - Deploy the integration tests on Kubernetes on GCP
