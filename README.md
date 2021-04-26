@@ -45,25 +45,24 @@ Brian plays the role of an operator who is responsible for deploying the changes
 - The API being developed should have high availability, a failed test should not bring down the service
 - Every commit or pull-request by a developer will go through CI/CD/CT pipeline, must pass all tests before being deployed
 - Ensure the security of secrets and sensitive data/tokens in the pipeline
-- Allow deployment on Kubernetes only after unit tests and integration tests pass. 
-- REST API to get the selenium and load test results continuously 
+- Allow deployment on Kubernetes only after unit tests and integration tests pass.  
 
 #### Out-of-Scope Features (not delivered as part of MVP):
-- Backwards compatibility with Jenkins
-- The URL shortener API is a demonstration, so extensive development or design of the shortener API is not in scope
-- Support for other Web APIs (other languages)
+- Provide interface to view the logs of continuous testing in production environment
 
-## 4. Solution Concept
+## 4. Design Decision
 #### The system components of the architectural design is as follows:
 - GitHub Actions for unit, integration and load testing and deployment
+- Selenium for performing integration tests
 - Locust for performing load tests
-- CLI tool for setting up GitHub Actions workflow yaml files and viewing logs
+- Documentation for guiding users to set up GitHub Actions workflow yaml files and view logs
 - Kubernetes Actions to deploy from GitHub
-- Docker for containerizing web app
-- Kubernetes on AWS/GCP/MOC for hosting production app and testing environment (integration, load/stress)
+- Kubernetes on GCP for hosting production app and testing environment (integration, load)
 
-Majority of our code will be in the CLI tool for generating GitHub Action workflow files.
-Development of the CLI tool is being done at [https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline](https://github.com/CS6620-S21/Building-an-Enhanced-CI-Pipeline)
+#### Main Decision
+- Why we choose GCP: 
+- Why use documentation instead of CLI tools:
+
 
 #### Architecture Diagram
 <img src="https://i.ibb.co/1929yJj/CI-CD-CT.png" alt="CI-CD-CT" border="0">
@@ -124,3 +123,27 @@ Release 5 (Deadline: end of semester)
 
 
 - https://github.com/yachinz/cicdct_react_frontend
+
+
+## 9. Run application guide
+- Install virtual env on your local machine
+  - Windows User: python -m venv env
+  - Mac User: python3 -m venv env
+- Enable virtual env
+  - Windows User: source venv_pc
+  - Mac User: source venv_unix
+- Install dependencies
+  - Windows User: pip install -r requirements.txt
+  - Mac User: pip3 install -r requirements.txt
+- Run Flask App
+  - Windows User: python app.py
+  - Mac User: python3 app.py
+- OR run Flask App via Docker Container (docker installed)
+  - docker build -t flaskapp:latest .
+  - docker run -it -p 5000:5000 flaskapp
+  - Optional: docker run -it -d -p 5000:5000 flaskapp (automatically runs in background)
+- Flask app runs on http://localhost:5000/
+
+
+## 10. Documentation
+- (link to each documentation in doc)
