@@ -9,26 +9,25 @@ To use github actions to deploy the WEB API on gke, the following steps are requ
 
 
 Now we have set up the required artifacts on GKE to deploy our application, now the following secrets should be added to our github repository:
-
-•	GKE_PROJECT: Google Cloud project ID
-•	GKE_SA_KEY: the content of the service account JSON file
+* GKE_PROJECT: Google Cloud project ID
+* GKE_SA_KEY: the content of the service account JSON file
 
 
 Following is the workflow of CI pipeline:
 
-1.	Set the following environment variables
-a.	PROJECT_ID: GKE_PROJECT secret
-b.	GKE_CLUSTER: The name of the cluster that we created while setting up the cluster on GKE
-c.	GKE_ZONE: Zone (Region) of the cluster (Example: US-Central1)
-d.	IMAGE: The name of the image that we want to use for the docker build
+1.  Set the following environment variables
+     1.	PROJECT_ID: GKE_PROJECT secret
+     2. GKE_CLUSTER: The name of the cluster that we created while setting up the cluster on GKE
+     3.	GKE_ZONE: Zone (Region) of the cluster (Example: US-Central1)
+     4.	IMAGE: The name of the image that we want to use for the docker build
 2.	After running the initial formatting and unit tests, now we deploy our application as a service on which integration and load tests would be performed
 3.	To deploy our application on GKE cluster, following steps are performed
-a.	Set up the gcloud CLI
-b.	Get the authorization for docker to store the docker builds
-c.	Get the credentials of GKE cluster to deploy the application
-d.	Build the docker image and push it to google container registry
-e.	Set up the kustomize (this creates the Kubernetes objects based on the kustomization file that we create inside the current directory)
-f.	Deploy the docker image to GKE cluster using the kustomize
+    1. 	Set up the gcloud CLI
+    2.	Get the authorization for docker to store the docker builds
+    3.	Get the credentials of GKE cluster to deploy the application
+    4.	Build the docker image and push it to google container registry
+    5.	Set up the kustomize (this creates the Kubernetes objects based on the kustomization file that we create inside the current directory)
+    6.	Deploy the docker image to GKE cluster using the kustomize
 4.	Once we have the application up and running, the integration and load test jobs get triggered which tests this application and logs are displayed to the developer on the github actions console.
 5.	Once all the jobs finish and logs are displayed, the GKE cluster objects, i.e., deployments, services and jobs are deleted.
 
