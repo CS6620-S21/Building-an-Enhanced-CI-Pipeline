@@ -85,27 +85,28 @@ Minimum acceptance criteria is a enhanced CI/CD/CT pipeline for an API developed
 
 ## 6. Release Planning
 Release 1 (Deadline: Feb 23, Demo1: Feb 26)
-- Write selenium tests for the Flask application and test them manually
 - Configure the previous code base and deploy a code change to OpenShift
   
 Release 2 (Deadline: Mar 9, Demo2: Mar 12)
-- Create the application testing environment for CI pipeline
-- Deployment of the application manually on Google Kubernetes Engine 
-- Automate the integration tests (Selenium) and load tests (Locust) in CI pipeline
+- Manully run integration test and load test on our application
+- Set up the CI pipeline
+- Automate deployment of the flask app on kubernetes GCP
+- Deploy the integration tests on Kubernetes on GCP
   
 Release 3 (Deadline: Mar 23, Demo3: Mar 26)
-- Creating the staging environment in CD pipeline
+- Automate the integration tests (Selenium) and load tests (Locust) in CI pipeline
+- Creating and set up the staging environment in CD pipeline
 - Deploying and automating deployment of the application on Google Kubernetes Engine
-- Automate the integration tests (Selenium) and load tests (Locust) in CD pipeline
   
-Release 4 (Deadline: Apr 6, Demo4: Apr 9) 
-- Create the production envrionment for continuous testing
-- Perform continuous testing
-- Complete Documentation for the learnings
-- Create REST API to fetch the logs of integration and load tests
+Release 4 (Deadline: Apr 6, Demo4: Apr 9)
+- Optimize the CI pipeline
+- Set up the production environment in CD pipeline
+- Deploy and continuously run the tests in production environment
+- Documentation everything
   
 Release 5 (Deadline: end of semester)
 - Make sure every part is functional, stable, and verified
+- Provide an user interface to display test logs
 - Final video
 
 ## 7. Sprint demos and presentations
@@ -114,7 +115,7 @@ Release 5 (Deadline: end of semester)
 - [Sprint 2 presentation](https://drive.google.com/file/d/1KEYMqCRR8AGZ9b5MrpuiLmRe5J2mXfeS/view?usp=sharing)
 - [Sprint 3 presentation](https://drive.google.com/file/d/1xEKhIZ2uhDqj5PfDZ5nrKpJwAgoEFW9s/view?usp=sharing)
 
-- Sprint 1 Demo (link to be added later)
+- Sprint 1 Demo (no video)
 - [Sprint 2 Demo](https://www.youtube.com/watch?v=zqCeR8jRPFQ)
 - [Sprint 3 Demo](https://www.youtube.com/watch?v=hKFIRhfNkq0)
 - [Sprint 4 Demo](https://www.youtube.com/watch?v=INccY-tMers)
