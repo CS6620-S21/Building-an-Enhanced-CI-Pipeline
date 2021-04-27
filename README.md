@@ -156,9 +156,9 @@ Release 5 (Deadline: end of semester)
 
 
 ## 10. Documentation
-* **[Integration test documentation](/doc/integration_test.md)
-* **[Load test documentation](/doc/load_test_documentation.md)
-* **[GKE setup documentation](/doc/gke_setup_deployment_manual.md)
-* **[CI pipeline documentation](/doc/CI_pipeline_documentation.MD)
-* **[APScheduler documentation](/doc/apscheduler.md)
-* **[Logging-Fluentd-Elasticsearch-Kibana](/doc/logging-fluentd-elasticsearch-kibana.md)
+* [Integration test documentation](/doc/integration_test.md)
+* [Load test documentation](/doc/load_test_documentation.md)
+* [GKE setup documentation](/doc/gke_setup_deployment_manual.md)
+* [CI pipeline documentation](/doc/CI_pipeline_documentation.MD)
+* [APScheduler documentation](/doc/apscheduler.md)
+* [Logging-Fluentd-Elasticsearch-Kibana](/doc/logging-fluentd-elasticsearch-kibana.md)
