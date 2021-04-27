@@ -127,7 +127,7 @@ Release 5 (Deadline: end of semester)
 - [Sprint 2 Demo](https://www.youtube.com/watch?v=zqCeR8jRPFQ)
 - [Sprint 3 Demo](https://www.youtube.com/watch?v=hKFIRhfNkq0)
 - [Sprint 4 Demo](https://www.youtube.com/watch?v=INccY-tMers)
-- [Sprint 4 Demo](https://drive.google.com/file/d/1Wn1a1hcznkqhosTIVBZ-vVxG5oJFNZQ3/view)
+- [Sprint 5 Demo](https://drive.google.com/file/d/1Wn1a1hcznkqhosTIVBZ-vVxG5oJFNZQ3/view)
 
 ## 8. Other repositories
 
